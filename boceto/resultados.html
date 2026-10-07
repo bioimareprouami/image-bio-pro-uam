@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados · Image Bio Pro</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div id="menu"></div>
+
+  <main class="contenedor">
+    <div class="migas"><a href="index.html">Inicio</a> &rsaquo; <a href="ia.html">Inteligencia Artificial</a> &rsaquo; Resultados</div>
+    <h1 class="titulo-pagina mb-1">Resultados del análisis</h1>
+    <p class="leyenda mb-3">muestra_01.jpg · 7 de octubre de 2026</p>
+
+    <p class="nota">Nota: todos los números de esta pantalla son de ejemplo. Los reales saldrán del análisis de cada imagen.</p>
+
+    <div class="row g-4">
+      <!-- Imagen analizada -->
+      <div class="col-lg-7">
+        <div class="ph" style="height: 440px">[imagen con cada cabeza marcada y numerada]</div>
+      </div>
+
+      <!-- Resumen -->
+      <div class="col-lg-5">
+        <div class="row g-2 mb-3">
+          <div class="col-4"><div class="dato"><div class="numero">148</div><div class="small">cabezas</div></div></div>
+          <div class="col-4"><div class="dato"><div class="numero" style="color: var(--rojo)">97</div><div class="small">rojas</div></div></div>
+          <div class="col-4"><div class="dato"><div class="numero" style="color: #d9731f">51</div><div class="small">anaranjadas</div></div></div>
+        </div>
+        <div class="titulo-bloque mt-3"><span>Distribución de tamaños</span></div>
+        <canvas id="histograma" height="230"></canvas>
+      </div>
+    </div>
+
+    <div class="titulo-bloque"><span>Detalle por cabeza</span></div>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>#</th><th>Área (µm²)</th><th>Longitud (µm)</th><th>Color</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>18.4</td><td>8.1</td><td>Roja</td></tr>
+          <tr><td>2</td><td>16.9</td><td>7.6</td><td>Anaranjada</td></tr>
+          <tr><td>3</td><td>19.2</td><td>8.4</td><td>Roja</td></tr>
+          <tr><td>4</td><td>17.5</td><td>7.9</td><td>Roja</td></tr>
+          <tr><td>5</td><td>20.1</td><td>8.8</td><td>Anaranjada</td></tr>
+          <tr><td colspan="4" class="leyenda">… 143 más</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+      <button class="btn btn-ibp">Descargar PDF</button>
+      <button class="btn btn-borde">Descargar CSV</button>
+    </div>
+  </main>
+
+  <div id="pie"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="menu.js"></script>
+  <script>
+    // Datos de ejemplo: cuántas cabezas caen en cada rango de longitud
+    new Chart(document.getElementById("histograma"), {
+      type: "bar",
+      data: {
+        labels: ["6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0", "9.5", "10.0"],
+        datasets: [{
+          label: "Cabezas",
+          data: [3, 8, 17, 29, 35, 27, 16, 9, 4],
+          backgroundColor: "#a8201a",
+          barPercentage: 1,
+          categoryPercentage: 0.95,
+        }],
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { title: { display: true, text: "Longitud (µm)" } },
+          y: { title: { display: true, text: "Frecuencia" }, beginAtZero: true },
+        },
+      },
+    });
+  </script>
+</body>
+</html>

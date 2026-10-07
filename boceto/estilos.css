@@ -1,0 +1,275 @@
+/* Estilos del boceto, siguiendo la estructura de femexer.org:
+   barra superior, título serif centrado, menú en mayúsculas,
+   títulos de bloque con etiqueta negra y esquinas rectas. */
+
+:root {
+  --rojo: #a8201a;
+  --dorado: #b5853a;
+  --gris: #6c6c6c;
+  --bs-border-radius: 0;
+  --bs-border-radius-sm: 0;
+  --bs-border-radius-lg: 0;
+}
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #222;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 1068px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ---------- Encabezado ---------- */
+
+.logo {
+  text-align: center;
+  padding: 22px 0 22px;
+}
+
+.logo a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo .circulo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 10px double var(--rojo);
+}
+
+.logo .nombre {
+  font-family: "Cinzel", serif;
+  font-size: 50px;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: #222;
+}
+
+.logo .lema {
+  font-family: "Cinzel", serif;
+  font-size: 16px;
+  color: var(--gris);
+  margin-top: 6px;
+  text-align: left;
+}
+
+/* Menú tipo hamburguesa: se abre con el botón en cualquier tamaño de pantalla */
+.menu-principal {
+  box-shadow: 0 6px 8px -6px rgba(0, 0, 0, 0.18);
+  border-top: 1px solid #eee;
+  padding: 8px 0 !important;
+}
+
+.boton-menu {
+  background: none;
+  border: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.menu-principal .extras {
+  font-size: 12px;
+}
+
+.menu-principal .extras a {
+  color: #222;
+  text-decoration: none;
+}
+
+.menu-principal .nav-link {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #000;
+  padding: 12px 0 !important;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-principal .nav-link.active,
+.menu-principal .nav-link:hover {
+  color: var(--rojo);
+}
+
+/* ---------- Contenido ---------- */
+
+.migas {
+  font-size: 12px;
+  color: #aaa;
+  margin: 22px 0 6px;
+}
+
+.migas a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+h1.titulo-pagina {
+  font-family: "Roboto Slab", serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+/* Título de bloque: etiqueta negra con línea a todo lo ancho */
+.titulo-bloque {
+  border-bottom: 2px solid #222;
+  margin: 36px 0 18px;
+}
+
+.titulo-bloque span {
+  display: inline-block;
+  background: #222;
+  color: #fff;
+  font-family: "Roboto Slab", serif;
+  font-size: 15px;
+  padding: 6px 12px 5px;
+}
+
+.leyenda {
+  font-style: italic;
+  color: #555;
+  font-size: 12px;
+}
+
+/* Caja gris que ocupa el lugar de una imagen o video que todavía no tenemos */
+.ph {
+  background: #d9d9d9;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  min-height: 120px;
+}
+
+/* Botón principal */
+.btn-ibp {
+  background: var(--rojo);
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: 0;
+}
+
+.btn-ibp:hover {
+  background: #861a15;
+  color: #fff;
+}
+
+.btn-borde {
+  border: 1px solid #222;
+  color: #222;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  background: #fff;
+}
+
+/* Infografías en mosaico */
+.infografia h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 10px 0 4px;
+}
+
+/* Aliados: nombre arriba de la foto, sin tarjeta */
+.aliado h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  min-height: 34px;
+  margin-bottom: 6px;
+}
+
+/* Página de IA */
+.fondo-ia {
+  background: #cfcfcf;
+  padding: 48px 16px;
+}
+
+.caja-carga {
+  background: #fff;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.zona-carga {
+  border: 2px dashed #aaa;
+  padding: 26px 16px;
+  text-align: center;
+  color: #777;
+}
+
+/* Resultados */
+.dato {
+  border: 1px solid #ddd;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.dato .numero {
+  font-family: "Roboto Slab", serif;
+  font-size: 30px;
+}
+
+/* Pie de página */
+.pie {
+  background: #222;
+  color: #bbb;
+  font-size: 12px;
+  padding: 26px 0;
+  margin-top: 50px;
+}
+
+.pie .nombre {
+  font-family: "Cinzel", serif;
+  color: #fff;
+  font-size: 20px;
+}
+
+/* Notas del boceto: explican qué va en cada lugar */
+.nota {
+  background: #fff8c5;
+  border: 1px dashed #d4b106;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 767px) {
+  .logo .circulo { width: 52px; height: 52px; border-width: 6px; }
+  .logo .nombre { font-size: 30px; }
+  .logo .lema { font-size: 11px; }
+}
