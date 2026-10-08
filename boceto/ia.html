@@ -31,10 +31,11 @@
     <div class="contenedor">
       <p class="nota mt-3">Nota: para analizar hay que tener cuenta. Si hace falta algún parámetro ajustable (por ejemplo, la escala), se agrega junto al botón.</p>
 
-      <!-- Infografías: complementan la página con información -->
-      <div class="titulo-bloque"><span>Infografías</span></div>
-      <p class="nota mb-3">Nota: al dar clic en una infografía se despliega su texto, como un blog. Las imágenes y los textos los manda el grupo.</p>
+      <!-- Infografías recientes: complementan la página con información -->
+      <div class="titulo-bloque"><span>Infografías recientes</span></div>
+      <p class="nota mb-3">Nota: una muestra de las últimas infografías para que la página no se vea vacía. Llevan a la sección de Infografías y videos.</p>
       <div class="row g-3" id="infografias"></div>
+      <p class="mt-3"><a href="infografias.html" style="color: var(--rojo)">Ver todas las infografías y videos &rsaquo;</a></p>
     </div>
   </main>
 
@@ -42,14 +43,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="menu.js"></script>
   <script>
-    // Ocho infografías de relleno en mosaico
+    // Cuatro infografías recientes de relleno
     const mosaico = document.getElementById("infografias");
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 4; i++) {
       mosaico.innerHTML += `
         <div class="col-6 col-md-3 infografia">
-          <a data-bs-toggle="collapse" href="#info${i}"><div class="ratio ratio-1x1"><div class="ph">[infografía ${i}]</div></div></a>
+          <a href="infografias.html"><div class="ratio ratio-1x1"><div class="ph">[infografía ${i}]</div></div></a>
           <h3>Título de la infografía ${i}</h3>
-          <div class="collapse" id="info${i}"><p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
         </div>`;
     }
   </script>

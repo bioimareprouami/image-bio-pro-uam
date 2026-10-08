@@ -10,6 +10,7 @@ const paginas = [
   ["index.html", "Inicio"],
   ["nosotros.html", "Nosotros"],
   ["aliados.html", "Aliados"],
+  ["infografias.html", "Infografías y videos"],
   ["ia.html", "Inteligencia Artificial"],
   ["contacto.html", "Contacto"],
 ];
