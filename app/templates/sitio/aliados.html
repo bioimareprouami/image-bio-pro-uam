@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}Aliados{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Aliados</div>
+  <h1 class="titulo-pagina">Aliados</h1>
+
+  <div class="row g-4">
+    {% for aliado in aliados %}
+      <div class="col-6 col-md-3 aliado">
+        <h3 class="notranslate">{{ aliado.nombre }}</h3>
+        {% if aliado.foto %}
+          <img class="img-fluid" src="{{ url_for('static', filename=aliado.foto) }}" alt="{{ aliado.nombre }}">
+        {% else %}
+          <div class="ph" style="height: 220px">[foto]</div>
+        {% endif %}
+        <p class="small mt-2 mb-0">{{ aliado.resena }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

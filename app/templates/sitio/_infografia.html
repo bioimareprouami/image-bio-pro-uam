@@ -1,0 +1,20 @@
+{# Un cuadro de infografía. Con abrir_ventana, al dar clic abre la ventana grande (RF-07). #}
+<div class="col-6 col-md-3 infografia">
+  {% if abrir_ventana %}
+    <a href="#" data-bs-toggle="modal" data-bs-target="#ventana"
+       data-titulo="{{ info.titulo }}" data-texto="{{ info.texto }}"
+       data-imagen="{{ url_for('static', filename=info.imagen) if info.imagen else '' }}">
+  {% else %}
+    <a href="{{ url_for('sitio.infografias') }}">
+  {% endif %}
+    <div class="ratio ratio-1x1">
+      {% if info.imagen %}
+        <img src="{{ url_for('static', filename=info.imagen) }}" alt="{{ info.titulo }}">
+      {% else %}
+        <div class="ph">[infografía {{ info.numero }}]</div>
+      {% endif %}
+    </div>
+  </a>
+  {# RF-08: el título va fuera de la imagen #}
+  <h3>{{ info.titulo }}</h3>
+</div>

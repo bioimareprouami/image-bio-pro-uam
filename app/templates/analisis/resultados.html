@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block titulo %}Resultados{% endblock %}
+
+{% block contenido %}
+  <div class="migas no-imprimir">
+    <a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo;
+    <a href="{{ url_for('analisis.ia') }}">Inteligencia Artificial</a> &rsaquo; Resultados
+  </div>
+  <h1 class="titulo-pagina mb-1">Resultados del análisis</h1>
+  <p class="leyenda mb-3">{{ current_user.nombre }} · {{ analisis.fecha.strftime('%d/%m/%Y %H:%M:%S') }}</p>
+
+  {% if resultados.provisional %}
+    <div class="alert alert-warning py-2">
+      Detección provisional por umbral de color, sin el modelo entrenado. Los resultados sirven para probar el sistema y no tienen validez científica.
+    </div>
+  {% endif %}
+
+  {% for img in resultados.imagenes %}
+    {% set i = loop.index %}
+    <div class="titulo-bloque"><span class="notranslate">{{ img.nombre }}</span></div>
+
+    {% for categoria, mensaje in img.mensajes %}
+      <div class="alert alert-{{ categoria }} py-2">{{ mensaje }}</div>
+    {% endfor %}
+
+    {% if img.metadatos %}
+      <p class="leyenda">
+        {{ img.metadatos.formato }} · {{ img.metadatos.ancho }} × {{ img.metadatos.alto }} px ·
+        {{ img.metadatos.modo }} · {{ img.metadatos.peso_kb }} KB{% if img.metadatos.dpi %} · {{ img.metadatos.dpi }} dpi{% endif %}
+      </p>
+    {% endif %}
+
+    {% if img.cabezas %}
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <img class="imagen-marcada" src="{{ url_for('analisis.imagen_marcada', analisis_id=analisis.id, nombre=img.marcada) }}"
+               alt="Imagen con cada cabeza marcada y numerada">
+        </div>
+        <div class="col-lg-5">
+          <div class="row g-2 mb-3">
+            <div class="col-4"><div class="dato"><div class="numero">{{ img.conteo }}</div><div class="small">cabezas</div></div></div>
+            <div class="col-4"><div class="dato"><div class="numero">{{ img.area.media }}</div><div class="small">área media (px)</div></div></div>
+            <div class="col-4"><div class="dato"><div class="numero">{{ img.area.desviacion }}</div><div class="small">desv. estándar</div></div></div>
+          </div>
+          <p class="small mb-1">
+            Largo de la cabeza: media {{ img.longitud.media }} px, desviación estándar {{ img.longitud.desviacion }} px
+            (de {{ img.longitud.minimo }} a {{ img.longitud.maximo }}).
+          </p>
+          <div class="titulo-bloque mt-3"><span>Distribución de tamaños</span></div>
+          <canvas id="histograma-{{ i }}" height="230"></canvas>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-1">
+        <div class="col-md-5">
+          <div class="titulo-bloque mt-2"><span>Clasificación por color</span></div>
+          <p class="small">Grado 10 = rojo, grado 1 = amarillo, repartidos entre el mínimo y el máximo de la imagen.</p>
+          <table class="table table-sm">
+            <thead><tr><th>Grado</th><th>Células</th><th>%</th></tr></thead>
+            <tbody>
+              {% for g in img.grados %}
+                <tr><td>{{ g.grado }}</td><td>{{ g.conteo }}</td><td>{{ g.porcentaje }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-7">
+          <div class="titulo-bloque mt-2"><span>Detalle por cabeza</span></div>
+          <div class="table-responsive" style="max-height: 360px; overflow-y: auto">
+            <table class="table table-sm">
+              <thead><tr><th>#</th><th>Área (px)</th><th>Largo (px)</th><th>Índice de color</th><th>Grado</th></tr></thead>
+              <tbody>
+                {% for c in img.cabezas %}
+                  <tr><td>{{ c.numero }}</td><td>{{ c.area_px }}</td><td>{{ c.longitud_px }}</td><td>{{ c.indice_color }}</td><td>{{ c.grado }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% if resultados.promedios %}
+    <div class="titulo-bloque"><span>Promedio entre las {{ resultados.promedios.imagenes }} imágenes</span></div>
+    <canvas id="histograma-promedio" height="110"></canvas>
+  {% endif %}
+
+  {# RF-43: hasta abajo, la opción de imprimir; RF-20: CSV y PDF #}
+  <div class="d-flex flex-wrap gap-2 mt-4 no-imprimir">
+    <button class="btn btn-ibp" type="button" onclick="window.print()">Imprimir</button>
+    {% if analisis.pdf %}<a class="btn btn-borde" href="{{ url_for('analisis.descargar_pdf', analisis_id=analisis.id) }}">Descargar PDF</a>{% endif %}
+    <a class="btn btn-borde" href="{{ url_for('analisis.descargar_csv', analisis_id=analisis.id) }}">Descargar CSV</a>
+    <a class="btn btn-link" href="{{ url_for('analisis.ia') }}">Analizar otras imágenes</a>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+    function graficaBarras(id, bordes, valores, etiquetaY) {
+      const etiquetas = valores.map((_, i) => `${bordes[i]}–${bordes[i + 1]}`);
+      new Chart(document.getElementById(id), {
+        type: "bar",
+        data: { labels: etiquetas, datasets: [{ label: etiquetaY, data: valores, backgroundColor: "#a8201a",
+                                                barPercentage: 1, categoryPercentage: 0.95 }] },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { title: { display: true, text: "Área de la cabeza (px)" } },
+            y: { title: { display: true, text: etiquetaY }, beginAtZero: true },
+          },
+        },
+      });
+    }
+
+    {% for img in resultados.imagenes %}
+      {% if img.cabezas %}
+        graficaBarras("histograma-{{ loop.index }}", {{ img.histograma.bordes | tojson }}, {{ img.histograma.frecuencias | tojson }}, "Células");
+      {% endif %}
+    {% endfor %}
+    {% if resultados.promedios %}
+      graficaBarras("histograma-promedio", {{ resultados.promedios.bordes | tojson }}, {{ resultados.promedios.promedios | tojson }}, "Células (promedio)");
+    {% endif %}
+  </script>
+{% endblock %}

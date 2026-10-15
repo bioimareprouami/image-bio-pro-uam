@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+  <div class="ph mt-4" style="height: 320px">[imagen principal]</div>
+
+  <h1 class="titulo-pagina mt-4 mb-2 notranslate">Image Bio Pro</h1>
+  <p style="font-size: 16px; max-width: 760px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <a class="btn btn-ibp mt-2" href="{{ url_for('analisis.ia') }}">Analizar una imagen</a>
+{% endblock %}

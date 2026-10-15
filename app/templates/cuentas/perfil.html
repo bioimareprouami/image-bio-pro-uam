@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block titulo %}Mi perfil{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Mi perfil</div>
+  <h1 class="titulo-pagina mb-1">{{ current_user.nombre }}</h1>
+  <p class="leyenda">{{ current_user.correo }}</p>
+
+  <div class="titulo-bloque"><span>Mis análisis</span></div>
+  {% if analisis %}
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead>
+          <tr><th>Fecha y hora</th><th>Imágenes</th><th class="text-end">Descargas</th></tr>
+        </thead>
+        <tbody>
+          {% for a in analisis %}
+            <tr>
+              <td><a href="{{ url_for('analisis.resultados', analisis_id=a.id) }}">{{ a.fecha.strftime('%d/%m/%Y %H:%M') }}</a></td>
+              <td class="notranslate">{{ a.nombres_imagenes | join(', ') }}</td>
+              <td class="text-end">
+                {% if a.pdf %}<a href="{{ url_for('analisis.descargar_pdf', analisis_id=a.id) }}">PDF</a> ·{% endif %}
+                <a href="{{ url_for('analisis.descargar_csv', analisis_id=a.id) }}">CSV</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>Todavía no tienes análisis. <a href="{{ url_for('analisis.ia') }}">Analiza una imagen</a>.</p>
+  {% endif %}
+{% endblock %}

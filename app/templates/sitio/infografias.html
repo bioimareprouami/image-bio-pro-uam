@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block titulo %}Infografías y videos{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Infografías y videos</div>
+  <h1 class="titulo-pagina">Infografías y videos</h1>
+
+  <div class="titulo-bloque mt-0"><span>Infografías</span></div>
+  <div class="row g-3">
+    {% for info in infografias %}
+      {% with abrir_ventana = true %}{% include "sitio/_infografia.html" %}{% endwith %}
+    {% endfor %}
+  </div>
+
+  {# RF-09: videos de YouTube que se reproducen en la misma página #}
+  <div class="titulo-bloque"><span>Videos</span></div>
+  <div class="row g-3">
+    {% for video in videos %}
+      <div class="col-md-6">
+        <div class="ratio ratio-16x9">
+          {% if video.youtube_id %}
+            <iframe src="https://www.youtube-nocookie.com/embed/{{ video.youtube_id }}"
+                    title="{{ video.titulo }}" allowfullscreen loading="lazy"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          {% else %}
+            <div class="ph">[video {{ loop.index }}]</div>
+          {% endif %}
+        </div>
+        <p class="mt-2 mb-0"><b>{{ video.titulo }}</b></p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="modal fade" id="ventana" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="ventana-titulo"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3" id="ventana-imagen"></div>
+          <p class="mb-0" id="ventana-texto"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

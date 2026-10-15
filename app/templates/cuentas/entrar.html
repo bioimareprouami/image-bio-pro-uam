@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block titulo %}Iniciar sesión{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Iniciar sesión</div>
+  <h1 class="titulo-pagina">Mi cuenta</h1>
+
+  <div class="row g-5">
+    <div class="col-md-6">
+      <div class="titulo-bloque mt-0"><span>Iniciar sesión</span></div>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="accion" value="entrar">
+        <div class="mb-3">
+          <label class="form-label" for="correo-entrar">Correo electrónico</label>
+          <input class="form-control" id="correo-entrar" name="correo" type="email" required
+                 value="{{ form.get('correo', '') if form.get('accion') == 'entrar' else '' }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="clave-entrar">Contraseña</label>
+          <input class="form-control" id="clave-entrar" name="clave" type="password" required>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" id="recordar" name="recordar" type="checkbox">
+          <label class="form-check-label" for="recordar">Recordarme en este equipo</label>
+        </div>
+        <button class="btn btn-ibp" type="submit">Entrar</button>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <div class="titulo-bloque mt-0"><span>Crear cuenta</span></div>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="accion" value="registrar">
+        <div class="mb-3">
+          <label class="form-label" for="nombre-nuevo">Nombre</label>
+          <input class="form-control" id="nombre-nuevo" name="nombre" type="text" maxlength="120" required
+                 value="{{ form.get('nombre', '') if form.get('accion') == 'registrar' else '' }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="correo-nuevo">Correo electrónico</label>
+          <input class="form-control" id="correo-nuevo" name="correo" type="email" maxlength="254" required
+                 value="{{ form.get('correo', '') if form.get('accion') == 'registrar' else '' }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="clave-nueva">Contraseña</label>
+          <input class="form-control" id="clave-nueva" name="clave" type="password" minlength="8" required>
+          <div class="form-text">Al menos 8 caracteres.</div>
+        </div>
+        <button class="btn btn-borde" type="submit">Registrarme</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

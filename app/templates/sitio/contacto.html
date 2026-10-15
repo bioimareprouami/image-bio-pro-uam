@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block titulo %}Contacto{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Contacto</div>
+  <h1 class="titulo-pagina">Haz contacto</h1>
+
+  <div class="row g-5">
+    <div class="col-md-5">
+      <div class="titulo-bloque mt-0"><span>Datos de contacto</span></div>
+      <p class="mb-2"><b>Correo:</b> contacto@ejemplo.com</p>
+      <p class="mb-2"><b>Teléfono:</b> 55 0000 0000</p>
+      <p class="mb-3"><b>Dirección:</b> UAM Unidad Xochimilco, Calzada del Hueso 1100, Coyoacán, CDMX.</p>
+      <div class="ph" style="height: 200px">[mapa]</div>
+    </div>
+
+    <div class="col-md-7">
+      <div class="titulo-bloque mt-0"><span>Envíanos un mensaje</span></div>
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-control" id="nombre" name="nombre" type="text" maxlength="120" required value="{{ form.get('nombre', '') }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="correo">Correo electrónico</label>
+          <input class="form-control" id="correo" name="correo" type="email" maxlength="254" required value="{{ form.get('correo', '') }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="mensaje">Mensaje</label>
+          <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required>{{ form.get('mensaje', '') }}</textarea>
+        </div>
+        <button class="btn btn-ibp" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

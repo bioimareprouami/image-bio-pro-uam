@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %}Aviso de privacidad{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Aviso de privacidad</div>
+  <h1 class="titulo-pagina">Aviso de privacidad 2026</h1>
+
+  {# RF-53: el texto lo entrega el grupo #}
+  <div style="max-width: 800px">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+{% endblock %}

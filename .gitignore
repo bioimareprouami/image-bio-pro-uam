@@ -9,3 +9,6 @@ __pycache__/
 .env
 instance/
 *.db
+
+# Pruebas
+.pytest_cache/
