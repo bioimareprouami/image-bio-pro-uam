@@ -10,5 +10,8 @@ __pycache__/
 instance/
 *.db
 
+# Imágenes del grupo (no van al repositorio)
+Fotos del microscopio (rata)/
+
 # Pruebas
 .pytest_cache/
