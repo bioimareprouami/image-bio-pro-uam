@@ -1,0 +1,12 @@
+.venv/
+.git/
+.githooks/
+__pycache__/
+*.pyc
+instance/
+.env
+.pytest_cache/
+tests/
+docs/
+boceto/
+scripts/

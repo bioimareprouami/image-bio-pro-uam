@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    environment:
+      # Se define en el archivo .env del servidor (no se sube a Git)
+      SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en el archivo .env}
+      # Limita los hilos de las librerías numéricas por proceso
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    volumes:
+      - datos:/srv/imagebio/instance
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - certbot-web:/var/www/certbot:ro
+      - certbot-certs:/etc/letsencrypt:ro
+
+volumes:
+  datos:
+  certbot-web:
+  certbot-certs:
