@@ -23,7 +23,7 @@ ALARGAMIENTO_MAXIMO = 5.0
 # Clasificación de color (RF-32): 10 grados equidistantes entre el mínimo y el máximo.
 GRADOS_COLOR = 10
 # True: el grado 10 es el más rojo (sano) y el 1 el más amarillo (enfermo).
-# El cliente dijo "o al revés": falta confirmarlo (pendiente en docs/requisitos.md).
+# El anaranjado es un grado intermedio. Si hay que invertir la escala, se cambia aquí.
 GRADO_ALTO_ES_ROJO = True
 
 BINS_HISTOGRAMA = 10
