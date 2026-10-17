@@ -15,11 +15,13 @@ ROJO = (168, 32, 26)
 def generar_csv(resultados):
     salida = io.StringIO()
     escritor = csv.writer(salida)
+    # area_um2 y longitud_um usan una escala provisional sin calibrar (60 px = 1 micra)
     escritor.writerow(["imagen", "cabeza", "area_px", "longitud_cabeza_px",
-                       "indice_color", "grado_color"])
+                       "area_um2", "longitud_cabeza_um", "indice_color", "grado_color"])
     for img in resultados["imagenes"]:
         for c in img["cabezas"]:
             escritor.writerow([img["nombre"], c["numero"], c["area_px"], c["longitud_px"],
+                               c.get("area_um2", ""), c.get("longitud_um", ""),
                                c["indice_color"], c["grado"]])
     # BOM para que Excel abra bien los acentos
     return "﻿" + salida.getvalue()
@@ -92,6 +94,13 @@ def generar_pdf(resultados, usuario, fecha, carpeta_marcadas, ruta_salida):
              new_x="LMARGIN", new_y="NEXT")
     pdf.cell(0, 6, _texto(f"Imágenes: {len(resultados['imagenes'])}"),
              new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(2)
+    pdf.set_font("Helvetica", "I", 9)
+    pdf.set_text_color(150, 60, 0)
+    pdf.multi_cell(0, 5, _texto(
+        "Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes. "
+        "Las medidas en micras son aproximadas."))
+    pdf.set_text_color(0, 0, 0)
     if resultados.get("provisional"):
         pdf.ln(2)
         pdf.set_font("Helvetica", "I", 9)
@@ -152,6 +161,12 @@ def _pagina_imagen(pdf, img, carpeta_marcadas):
         pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
                               f"mínimo {r['minimo']}, máximo {r['maximo']}"),
                  new_x="LMARGIN", new_y="NEXT")
+    if img.get("area_um"):
+        for etiqueta, clave in (("Área de la cabeza (µm²)", "area_um"), ("Largo de la cabeza (µm)", "longitud_um")):
+            r = img[clave]
+            pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
+                                  f"mínimo {r['minimo']}, máximo {r['maximo']}"),
+                     new_x="LMARGIN", new_y="NEXT")
     pdf.ln(2)
 
     h = img["histograma"]

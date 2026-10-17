@@ -11,7 +11,11 @@ instance/
 *.db
 
 # Imágenes del grupo (no van al repositorio)
+Fotos del microscopio/
 Fotos del microscopio (rata)/
+
+# Exportaciones de CVAT (traen las fotos del grupo)
+rojoamarillo*.zip
 
 # Pruebas
 .pytest_cache/

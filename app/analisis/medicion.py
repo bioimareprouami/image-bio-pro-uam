@@ -26,6 +26,11 @@ GRADOS_COLOR = 10
 # El anaranjado es un grado intermedio. Si hay que invertir la escala, se cambia aquí.
 GRADO_ALTO_ES_ROJO = True
 
+# Escala PROVISIONAL, sin calibrar: indicación del grupo de investigación (16-oct-2026):
+# una raya de 300 px equivale a 5 micras, es decir, 60 px = 1 micra. Más adelante la
+# escala se leerá de la raya de cada imagen; por ahora es una sola constante para todas.
+PX_POR_MICRA = 60
+
 BINS_HISTOGRAMA = 10
 FORMATOS_SIN_PERDIDA = {"BMP", "PNG", "TIFF"}
 
@@ -93,9 +98,13 @@ def medir_cabeza(rgb, contorno):
     indice_amarillo = float(g / (r + g)) if (r + g) > 0 else 0.0
 
     (_, _), (lado1, lado2), _ = cv2.minAreaRect(contorno)
+    area_px = int(np.count_nonzero(mascara))
+    longitud_px = float(max(lado1, lado2))
     return {
-        "area_px": int(np.count_nonzero(mascara)),          # RF-25
-        "longitud_px": round(float(max(lado1, lado2)), 1),  # RF-22: lo que abarca la cabeza
+        "area_px": area_px,                                    # RF-25
+        "longitud_px": round(longitud_px, 1),                  # RF-22: lo que abarca la cabeza
+        "area_um2": round(area_px / PX_POR_MICRA ** 2, 3),
+        "longitud_um": round(longitud_px / PX_POR_MICRA, 2),
         "indice_color": round(indice_amarillo, 4),
     }
 
@@ -193,6 +202,8 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
     resultado["conteo"] = len(cabezas)                       # RF-15, RF-28
     resultado["area"] = resumen([c["area_px"] for c in cabezas])
     resultado["longitud"] = resumen([c["longitud_px"] for c in cabezas])
+    resultado["area_um"] = resumen([c["area_um2"] for c in cabezas])
+    resultado["longitud_um"] = resumen([c["longitud_um"] for c in cabezas])
     resultado["histograma"] = histograma([c["area_px"] for c in cabezas])  # RF-26
     resultado["grados"] = asignar_grados(cabezas)              # RF-32, RF-34
 

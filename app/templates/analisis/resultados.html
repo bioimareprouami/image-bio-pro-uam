@@ -16,6 +16,10 @@
     </div>
   {% endif %}
 
+  <div class="alert alert-info py-2">
+    Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes. Las medidas en micras son aproximadas.
+  </div>
+
   {% for img in resultados.imagenes %}
     {% set i = loop.index %}
     <div class="titulo-bloque"><span class="notranslate">{{ img.nombre }}</span></div>
@@ -47,6 +51,12 @@
             Largo de la cabeza: media {{ img.longitud.media }} px, desviación estándar {{ img.longitud.desviacion }} px
             (de {{ img.longitud.minimo }} a {{ img.longitud.maximo }}).
           </p>
+          {% if img.area_um %}
+            <p class="small mb-1">
+              En micras (escala provisional): área media {{ img.area_um.media }} µm², desviación estándar {{ img.area_um.desviacion }};
+              largo medio {{ img.longitud_um.media }} µm, desviación estándar {{ img.longitud_um.desviacion }}.
+            </p>
+          {% endif %}
           <div class="titulo-bloque mt-3"><span>Distribución de tamaños</span></div>
           <canvas id="histograma-{{ i }}" height="230"></canvas>
         </div>
@@ -69,10 +79,10 @@
           <div class="titulo-bloque mt-2"><span>Detalle por cabeza</span></div>
           <div class="table-responsive" style="max-height: 360px; overflow-y: auto">
             <table class="table table-sm">
-              <thead><tr><th>#</th><th>Área (px)</th><th>Largo (px)</th><th>Índice de color</th><th>Grado</th></tr></thead>
+              <thead><tr><th>#</th><th>Área (px)</th><th>Largo (px)</th><th>Área (µm²)</th><th>Largo (µm)</th><th>Índice de color</th><th>Grado</th></tr></thead>
               <tbody>
                 {% for c in img.cabezas %}
-                  <tr><td>{{ c.numero }}</td><td>{{ c.area_px }}</td><td>{{ c.longitud_px }}</td><td>{{ c.indice_color }}</td><td>{{ c.grado }}</td></tr>
+                  <tr><td>{{ c.numero }}</td><td>{{ c.area_px }}</td><td>{{ c.longitud_px }}</td><td>{{ c.area_um2 }}</td><td>{{ c.longitud_um }}</td><td>{{ c.indice_color }}</td><td>{{ c.grado }}</td></tr>
                 {% endfor %}
               </tbody>
             </table>
