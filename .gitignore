@@ -19,3 +19,6 @@ rojoamarillo*.zip
 
 # Pruebas
 .pytest_cache/
+
+# Resultados descargados de Colab (pesan cientos de MB)
+corrida_*.zip
