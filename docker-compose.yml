@@ -5,11 +5,14 @@ services:
     environment:
       # Se define en el archivo .env del servidor (no se sube a Git)
       SECRET_KEY: ${SECRET_KEY:?Define SECRET_KEY en el archivo .env}
-      # Limita los hilos de las librerías numéricas por proceso
-      OMP_NUM_THREADS: "1"
+      # Dónde están los modelos entrenados (se copian al servidor aparte; ver model/README.md)
+      MODELOS_DIR: /srv/imagebio/model
+      # Hilos que usa PyTorch por análisis. Si no se define, usa hasta 4 según las CPU del servidor
+      TORCH_HILOS: ${TORCH_HILOS:-}
       OPENBLAS_NUM_THREADS: "1"
     volumes:
       - datos:/srv/imagebio/instance
+      - ./model:/srv/imagebio/model:ro
 
   nginx:
     image: nginx:1.27-alpine

@@ -16,7 +16,9 @@ PRUEBA = os.path.join(os.path.dirname(__file__), "..", "app", "static", "muestra
 
 
 @pytest.fixture
-def app(tmp_path):
+def app(tmp_path, monkeypatch):
+    # Sin modelos: así las pruebas usan la detección provisional, rápida y que no depende de PyTorch
+    monkeypatch.setenv("MODELOS_DIR", str(tmp_path / "sin_modelos"))
     app = crear_app({
         "TESTING": True,
         "WTF_CSRF_ENABLED": False,
@@ -97,7 +99,10 @@ def test_analisis_completo_y_descargas(app, cliente):
     assert cliente.get(marcada).mimetype == "image/jpeg"
 
     csv = cliente.get(url + "/csv").get_data(as_text=True)
-    assert csv.count("\n") == 1 + 2 * 45  # encabezado + 45 cabezas por imagen
+    assert csv.count("\n") == 1 + 2 * 45  # encabezado + 45 espermatozoides por imagen
+    # El color queda declarado pero sin usar: no aparece en los resultados ni en el CSV
+    assert csv.splitlines()[0].lstrip("﻿") == "imagen,espermatozoide,area_px,longitud_px,area_um2,longitud_um"
+    assert "Clasificación por color" not in pagina and "Índice de color" not in pagina
 
     pdf = cliente.get(url + "/pdf")
     assert pdf.data.startswith(b"%PDF")
@@ -177,3 +182,10 @@ def test_imagen_muy_chica_no_lleva_regla(tmp_path):
     destino = str(tmp_path / "chica.png")
     medicion.dibujar_marcas(chica, [], destino)
     assert cv2.imread(destino).max() == 0               # no se dibuja nada
+
+
+def test_sin_modelos_se_avisa_que_la_deteccion_es_provisional(cliente):
+    registrar(cliente)
+    pagina = cliente.post("/analizar/prueba", follow_redirects=True).get_data(as_text=True)
+    assert "Detección provisional" in pagina
+    assert "Modelo preliminar" not in pagina

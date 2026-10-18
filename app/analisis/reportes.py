@@ -16,13 +16,11 @@ def generar_csv(resultados):
     salida = io.StringIO()
     escritor = csv.writer(salida)
     # area_um2 y longitud_um usan una escala provisional sin calibrar (60 px = 1 micra)
-    escritor.writerow(["imagen", "cabeza", "area_px", "longitud_cabeza_px",
-                       "area_um2", "longitud_cabeza_um", "indice_color", "grado_color"])
+    escritor.writerow(["imagen", "espermatozoide", "area_px", "longitud_px", "area_um2", "longitud_um"])
     for img in resultados["imagenes"]:
         for c in img["cabezas"]:
             escritor.writerow([img["nombre"], c["numero"], c["area_px"], c["longitud_px"],
-                               c.get("area_um2", ""), c.get("longitud_um", ""),
-                               c["indice_color"], c["grado"]])
+                               c.get("area_um2", ""), c.get("longitud_um", "")])
     # BOM para que Excel abra bien los acentos
     return "﻿" + salida.getvalue()
 
@@ -38,7 +36,7 @@ def _grafica_barras(bordes, valores, titulo, eje_y):
     ax.bar(bordes[:-1], valores, width=anchos, align="edge", color="#a8201a",
            edgecolor="white")
     ax.set_title(titulo, fontsize=10)
-    ax.set_xlabel("Área de la cabeza (px)", fontsize=9)
+    ax.set_xlabel("Área del espermatozoide (px)", fontsize=9)
     ax.set_ylabel(eje_y, fontsize=9)
     ax.tick_params(labelsize=8)
     fig.tight_layout()
@@ -110,6 +108,14 @@ def generar_pdf(resultados, usuario, fecha, carpeta_marcadas, ruta_salida):
             "Detección provisional por umbral de color, sin el modelo entrenado. "
             "Los resultados sirven para probar el sistema y no tienen validez científica."))
         pdf.set_text_color(0, 0, 0)
+    elif resultados.get("modelo_preliminar"):
+        pdf.ln(2)
+        pdf.set_font("Helvetica", "I", 9)
+        pdf.set_text_color(150, 60, 0)
+        pdf.multi_cell(0, 5, _texto(
+            "Modelo preliminar, entrenado con pocas imágenes: los resultados son aproximados. "
+            "Donde hay muchos espermatozoides juntos el conteo puede ser menos exacto."))
+        pdf.set_text_color(0, 0, 0)
 
     for img in resultados["imagenes"]:
         _pagina_imagen(pdf, img, carpeta_marcadas)
@@ -157,13 +163,13 @@ def _pagina_imagen(pdf, img, carpeta_marcadas):
     pdf.set_font("Helvetica", "B", 10)
     pdf.cell(0, 6, _texto(f"Conteo de células: {img['conteo']}"), new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 9)
-    for etiqueta, clave in (("Área de la cabeza (px)", "area"), ("Largo de la cabeza (px)", "longitud")):
+    for etiqueta, clave in (("Área del espermatozoide (px)", "area"), ("Largo del espermatozoide (px)", "longitud")):
         r = img[clave]
         pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
                               f"mínimo {r['minimo']}, máximo {r['maximo']}"),
                  new_x="LMARGIN", new_y="NEXT")
     if img.get("area_um"):
-        for etiqueta, clave in (("Área de la cabeza (µm²)", "area_um"), ("Largo de la cabeza (µm)", "longitud_um")):
+        for etiqueta, clave in (("Área del espermatozoide (µm²)", "area_um"), ("Largo del espermatozoide (µm)", "longitud_um")):
             r = img[clave]
             pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
                                   f"mínimo {r['minimo']}, máximo {r['maximo']}"),
@@ -174,13 +180,3 @@ def _pagina_imagen(pdf, img, carpeta_marcadas):
     grafica = _grafica_barras(h["bordes"], h["frecuencias"], "Distribución de tamaños", "Células")
     pdf.image(grafica, w=pdf.epw * 0.85)
     pdf.ln(2)
-
-    pdf.set_font("Helvetica", "B", 10)
-    pdf.cell(0, 6, _texto("Clasificación por color (10 = rojo, 1 = amarillo)"),
-             new_x="LMARGIN", new_y="NEXT")
-    pdf.set_font("Helvetica", "", 9)
-    with pdf.table(col_widths=(20, 25, 25), width=90, align="LEFT",
-                   text_align="CENTER") as tabla:
-        tabla.row(["Grado", "Células", "%"])
-        for g in img["grados"]:
-            tabla.row([str(g["grado"]), str(g["conteo"]), f"{g['porcentaje']}"])

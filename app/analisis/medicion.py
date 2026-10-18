@@ -1,17 +1,25 @@
-"""Detección y medición de cabezas en una imagen de fluorescencia.
+"""Detección y medición de espermatozoides en una imagen.
 
-La detección de este archivo es PROVISIONAL: separa las cabezas por umbral de color con
-OpenCV mientras no exista el modelo Mask R-CNN entrenado. Cuando el modelo esté listo,
-solo cambia `detectar_cabezas`; la medición de tamaño y color dentro de cada contorno
-(`medir_cabeza`) y la estadística se quedan igual.
+La detección la hacen los modelos Mask R-CNN entrenados en Colab (`modelo.py`). Si no están disponibles
+(falta PyTorch o los archivos .pt), se usa la detección PROVISIONAL de este archivo, que separa las cabezas
+por umbral de color con OpenCV, y los resultados lo avisan. La medición de tamaño y color dentro de cada contorno
+(`medir_cabeza`) y la estadística son las mismas en los dos casos.
+
+Nota: en los datos guardados la lista de espermatozoides se llama `cabezas` (así se llamaba al principio);
+se conserva el nombre para que los análisis ya guardados sigan abriéndose.
 """
+import logging
 import os
 
 import cv2
 import numpy as np
 from PIL import Image
 
-DETECCION_PROVISIONAL = True
+from app.analisis import modelo
+
+log = logging.getLogger(__name__)
+
+DETECCION_PROVISIONAL = True     # valor por omisión; cada imagen dice con qué se analizó (resultado["detector"])
 
 # Ruido del microscopio: objetos más chicos que esto no se cuentan (RF-16)
 AREA_MINIMA_PX = 20
@@ -88,6 +96,20 @@ def detectar_cabezas(rgb):
             continue
         cabezas.append(c)
     return cabezas
+
+
+def detectar_espermatozoides(rgb):
+    """Devuelve (contornos, detector, aviso): con el modelo si está disponible y, si no, con la detección provisional.
+    `detector` es 'fluorescencia', 'campo_claro' o 'provisional'. `aviso` explica por qué se usó la provisional
+    cuando se esperaba el modelo."""
+    if modelo.disponible():
+        try:
+            contornos, info = modelo.detectar(rgb)
+            return contornos, info["modelo"], None
+        except Exception:
+            log.exception("Falló el modelo; se usa la detección provisional")
+            return detectar_cabezas(rgb), "provisional", "No se pudo usar el modelo; se usó la detección provisional."
+    return detectar_cabezas(rgb), "provisional", None
 
 
 def medir_cabeza(rgb, contorno):
@@ -179,10 +201,13 @@ def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400):
     bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
     escala_texto = max(0.35, min(bgr.shape[:2]) / 1500)
     for numero, c in enumerate(contornos, start=1):
-        cv2.drawContours(bgr, [c], -1, (255, 255, 255), 1)
+        # Borde oscuro debajo del trazo blanco: así se ve tanto en fondo negro como en fondo claro
+        cv2.drawContours(bgr, [c], -1, (0, 0, 0), 3, cv2.LINE_AA)
+        cv2.drawContours(bgr, [c], -1, (255, 255, 255), 1, cv2.LINE_AA)
         x, y, _, _ = cv2.boundingRect(c)
-        cv2.putText(bgr, str(numero), (x, max(y - 2, 10)), cv2.FONT_HERSHEY_SIMPLEX,
-                    escala_texto, (255, 255, 255), 1, cv2.LINE_AA)
+        for color, grosor in (((0, 0, 0), 3), ((255, 255, 255), 1)):
+            cv2.putText(bgr, str(numero), (x, max(y - 2, 10)), cv2.FONT_HERSHEY_SIMPLEX,
+                        escala_texto, color, grosor, cv2.LINE_AA)
     dibujar_regla(bgr)
     alto, ancho = bgr.shape[:2]
     factor = lado_maximo / max(alto, ancho)
@@ -208,7 +233,10 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
             ("warning", f"La imagen está en {metadatos['formato']}, un formato con compresión. "
                         "El color y los bordes pueden alterarse; usa BMP, PNG o TIFF."))
 
-    contornos = detectar_cabezas(rgb)
+    contornos, detector, aviso = detectar_espermatozoides(rgb)
+    resultado["detector"] = detector
+    if aviso:
+        resultado["mensajes"].append(("warning", aviso))
     if not contornos:
         # RF-38 y RF-41: decir claramente que no se analizó, en lugar de dar un resultado dudoso
         resultado["estado"] = "no_analizada"
@@ -236,11 +264,11 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
     resultado["marcada"] = os.path.basename(ruta_marcada)
 
     if len(cabezas) < 3:
-        # RF-40: contó, pero con tan pocas cabezas la clasificación por color no dice nada
+        # RF-40: contó, pero con tan pocos espermatozoides la distribución de tamaños no dice nada
         resultado["estado"] = "aviso"
         resultado["mensajes"].append(
-            ("warning", "Se contaron muy pocas cabezas: la clasificación por color y la "
-                        "distribución de tamaños no son confiables."))
+            ("warning", "Se contaron muy pocos espermatozoides: la distribución de tamaños "
+                        "no es confiable."))
     else:
         resultado["estado"] = "ok"
         resultado["mensajes"].append(("success", "La imagen fue analizada con éxito."))  # RF-39

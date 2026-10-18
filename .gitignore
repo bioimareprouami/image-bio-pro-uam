@@ -23,3 +23,6 @@ rojoamarillo*.zip
 # Resultados descargados de Colab (pesan cientos de MB)
 corrida_*.zip
 dataset*.zip
+
+# Modelos entrenados (pesan cientos de MB; se copian al servidor aparte)
+model/*.pt

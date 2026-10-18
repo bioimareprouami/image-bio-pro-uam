@@ -18,7 +18,15 @@ cd imagebio
 echo "SECRET_KEY=$(openssl rand -hex 32)" > .env
 ```
 
-## 2. Levantar el sitio
+## 2. Copiar los modelos y levantar el sitio
+
+Los dos modelos entrenados (`fluorescencia.pt` y `campo_claro.pt`, unos 176 MB cada uno) **no están en Git**. Se copian a la carpeta `model/` del servidor antes de levantar el sitio, por ejemplo desde tu computadora:
+
+```bash
+scp model/fluorescencia.pt model/campo_claro.pt USUARIO@IP-del-VPS:~/imagebio/model/
+```
+
+`docker-compose.yml` monta esa carpeta dentro del contenedor, así que cambiar un modelo por uno nuevo no obliga a reconstruir la imagen: se copia el archivo y `docker compose restart web`. Si faltan los archivos, el sitio funciona con la detección provisional y lo avisa en los resultados.
 
 ```bash
 docker compose up -d --build
@@ -75,5 +83,7 @@ docker run --rm -v imagebio_datos:/datos -v $(pwd):/respaldo alpine \
 ## Ajustes que dependen de medir en el servidor
 
 - **Límite de subida:** 300 MB en Nginx y en `MAX_CONTENT_LENGTH` (10 imágenes BMP sin compresión). Si se decide otro tope, cambiar los dos.
-- **Timeout:** 300 s en Gunicorn y en Nginx. Probar con 10 BMP reales; ajustar `--workers` según la RAM.
-- **Modelo (PyTorch):** al agregarlo, subir `torch` y `torchvision` (versión CPU) a `requirements.txt`, copiar los pesos de `model/` en el `Dockerfile` y limitar los hilos con `torch.set_num_threads`. Revisar RAM y espacio en disco, porque la imagen crece varios GB.
+- **Timeout:** 1800 s en Gunicorn y en Nginx, porque analizar 10 imágenes con los modelos puede tardar varios minutos. **Hay que medir los tiempos en el VPS real**: en una computadora de escritorio un análisis tarda de 10 a 50 segundos por imagen de 1792 px, y un VPS con una sola CPU puede tardar varias veces más. Si con 10 imágenes se pasa del tiempo razonable, hay que limitar imágenes por subida o pasar el análisis a segundo plano.
+- **Proceso:** un solo proceso de Gunicorn con 4 hilos, para cargar los modelos una vez. Los análisis esperan turno (uno a la vez), así que varios usuarios analizando a la vez se encolan.
+- **PyTorch:** `requirements-modelo.txt` instala `torch` y `torchvision` para CPU desde el índice de CPU de PyTorch (la imagen crece alrededor de 1 GB). Los hilos que usa se limitan con la variable `TORCH_HILOS` (por omisión, hasta 4 según las CPU).
+- **Memoria:** los modelos se cargan la primera vez que se usan y se quedan en memoria (unos 400 MB entre los dos, más el análisis). Revisar la RAM del VPS con `docker stats`.

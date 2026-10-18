@@ -20,6 +20,7 @@
             <input class="form-control" id="imagenes" name="imagenes" type="file" multiple required
                    accept="{% for e in extensiones %}.{{ e }}{% if not loop.last %},{% endif %}{% endfor %}">
             <p class="small mt-2 mb-0">Formatos: BMP, PNG o TIFF. JPG se acepta, pero pierde calidad.</p>
+            <p class="small mt-1 mb-0">El análisis puede tardar de unos segundos a varios minutos por imagen. No cierres la página mientras se analiza.</p>
           </div>
           <button class="btn btn-ibp w-100" type="submit">Analizar</button>
         </form>

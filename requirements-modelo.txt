@@ -1,0 +1,8 @@
+# PyTorch para CPU: lo que usan los modelos entrenados (app/analisis/modelo.py).
+# Es opcional: sin estos paquetes el sitio funciona con la detección provisional.
+# Instalar desde el índice de CPU de PyTorch, que es mucho más chico que el de GPU:
+#   pip install --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple -r requirements-modelo.txt
+# Son las versiones con las que se probó el sitio. Los modelos se entrenaron en Colab con torch 2.11 y torchvision 0.26
+# y se comprobó que cargan y dan los mismos resultados con estas.
+torch==2.14.1
+torchvision==0.29.1

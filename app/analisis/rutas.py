@@ -79,8 +79,11 @@ def _analizar_una(ruta, nombre_original, clave, numero):
 
 
 def _guardar_y_mostrar(imagenes):
+    detectores = {img.get("detector") for img in imagenes if img.get("detector")}
     resultados = {
-        "provisional": medicion.DETECCION_PROVISIONAL,
+        # Provisional si alguna imagen se analizó con la detección por umbral de color; si no, con los modelos
+        "provisional": "provisional" in detectores,
+        "modelo_preliminar": bool(detectores - {"provisional"}),
         "imagenes": imagenes,
         "promedios": medicion.promedios_entre_imagenes(imagenes),
     }

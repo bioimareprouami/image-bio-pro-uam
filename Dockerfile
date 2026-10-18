@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /srv/imagebio
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements-modelo.txt ./
+RUN pip install -r requirements.txt  && pip install --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple -r requirements-modelo.txt
 
 COPY app ./app
 COPY run.py .
@@ -16,5 +16,8 @@ VOLUME /srv/imagebio/instance
 
 EXPOSE 8000
 
-# Timeout alto: el análisis de varias imágenes grandes tarda
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "300", "app:crear_app()"]
+# Un solo proceso con varios hilos: así los modelos (cientos de MB) se cargan una vez y no por proceso.
+# Los análisis esperan turno dentro del módulo (solo uno usa la CPU a la vez); los hilos permiten que el resto
+# del sitio siga respondiendo mientras tanto.
+# Timeout alto: analizar 10 imágenes grandes con los modelos puede tardar varios minutos.
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "4", "--timeout", "1800", "app:crear_app()"]
