@@ -122,7 +122,8 @@ def resultados(analisis_id):
 @login_required
 def imagen_marcada(analisis_id, nombre):
     analisis = _analisis_propio(analisis_id)
-    if nombre not in {img.get("marcada") for img in analisis.resultados["imagenes"]}:
+    permitidos = {img.get(clave) for img in analisis.resultados["imagenes"] for clave in ("marcada", "marcada_ampliada")}
+    if nombre not in permitidos:
         abort(404)
     return send_from_directory(current_app.config["CARPETA_MARCADAS"], nombre)
 

@@ -84,6 +84,7 @@ docker run --rm -v imagebio_datos:/datos -v $(pwd):/respaldo alpine \
 
 - **Límite de subida:** 300 MB en Nginx y en `MAX_CONTENT_LENGTH` (10 imágenes BMP sin compresión). Si se decide otro tope, cambiar los dos.
 - **Timeout:** 1800 s en Gunicorn y en Nginx, porque analizar 10 imágenes con los modelos puede tardar varios minutos. **Hay que medir los tiempos en el VPS real**: en una computadora de escritorio un análisis tarda de 10 a 50 segundos por imagen de 1792 px, y un VPS con una sola CPU puede tardar varias veces más. Si con 10 imágenes se pasa del tiempo razonable, hay que limitar imágenes por subida o pasar el análisis a segundo plano.
+- **Temporizador de espera (solo desarrollo):** con `MOSTRAR_TEMPORIZADOR=1` en el archivo `.env`, la pantalla de espera del análisis muestra cuánto lleva. Sirve para medir tiempos. **En producción se deja sin definir**, y entonces no aparece.
 - **Proceso:** un solo proceso de Gunicorn con 4 hilos, para cargar los modelos una vez. Los análisis esperan turno (uno a la vez), así que varios usuarios analizando a la vez se encolan.
 - **PyTorch:** `requirements-modelo.txt` instala `torch` y `torchvision` para CPU desde el índice de CPU de PyTorch (la imagen crece alrededor de 1 GB). Los hilos que usa se limitan con la variable `TORCH_HILOS` (por omisión, hasta 4 según las CPU).
 - **Memoria:** los modelos se cargan la primera vez que se usan y se quedan en memoria (unos 400 MB entre los dos, más el análisis). Revisar la RAM del VPS con `docker stats`.

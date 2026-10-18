@@ -16,6 +16,9 @@ def crear_app(config=None):
         # Hasta 10 imágenes BMP sin compresión (RF-35)
         MAX_CONTENT_LENGTH=300 * 1024 * 1024,
         MAX_IMAGENES=10,
+        # Solo para desarrollo: muestra un temporizador en la pantalla de espera del análisis.
+        # Se activa con la variable de entorno MOSTRAR_TEMPORIZADOR=1; en producción va apagado.
+        MOSTRAR_TEMPORIZADOR=os.environ.get("MOSTRAR_TEMPORIZADOR") == "1",
         CARPETA_PDF=os.path.join(app.instance_path, "pdfs"),
         CARPETA_SUBIDAS=os.path.join(app.instance_path, "subidas"),
         # Copias reducidas con las cabezas marcadas, para volver a ver un análisis (RF-48)

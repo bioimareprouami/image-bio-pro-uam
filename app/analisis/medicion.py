@@ -135,6 +135,13 @@ def medir_cabeza(rgb, contorno):
     }
 
 
+def contorno_simple(contorno, tolerancia=1.5):
+    """Contorno simplificado como lista de [x, y] en las coordenadas de la foto original. Se guarda con los
+    resultados para dibujar sobre la imagen una zona por espermatozoide (el detalle que sale al pasar el mouse)."""
+    puntos = cv2.approxPolyDP(contorno, tolerancia, True).reshape(-1, 2)
+    return [[int(x), int(y)] for x, y in puntos]
+
+
 def asignar_grados(cabezas):
     """Reparte el color en GRADOS_COLOR grados equidistantes entre el mínimo y el máximo (RF-32)."""
     indices = [c["indice_color"] for c in cabezas]
@@ -196,8 +203,19 @@ def dibujar_regla(bgr):
                     max(1, grosor // 2) + (3 if extra else 0), cv2.LINE_AA)
 
 
-def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400):
-    """Guarda una copia reducida con cada cabeza marcada y numerada, y la regla de escala."""
+def _guardar_reducida(bgr, ruta, lado_maximo, calidad):
+    """Guarda la imagen en JPG, reducida si su lado mayor pasa de lado_maximo (nunca se agranda)."""
+    alto, ancho = bgr.shape[:2]
+    factor = lado_maximo / max(alto, ancho)
+    if factor < 1:
+        bgr = cv2.resize(bgr, (int(ancho * factor), int(alto * factor)), interpolation=cv2.INTER_AREA)
+    cv2.imwrite(ruta, bgr, [cv2.IMWRITE_JPEG_QUALITY, calidad])
+
+
+def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400, ruta_ampliada=None, lado_ampliado=2800):
+    """Guarda una copia reducida con cada espermatozoide marcado y numerado, y la regla de escala.
+    Si se da ruta_ampliada, guarda además una copia más grande para hacer zoom en la pantalla de resultados
+    (la reducida es la que usan la página y el PDF)."""
     bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
     escala_texto = max(0.35, min(bgr.shape[:2]) / 1500)
     for numero, c in enumerate(contornos, start=1):
@@ -209,11 +227,9 @@ def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400):
             cv2.putText(bgr, str(numero), (x, max(y - 2, 10)), cv2.FONT_HERSHEY_SIMPLEX,
                         escala_texto, color, grosor, cv2.LINE_AA)
     dibujar_regla(bgr)
-    alto, ancho = bgr.shape[:2]
-    factor = lado_maximo / max(alto, ancho)
-    if factor < 1:
-        bgr = cv2.resize(bgr, (int(ancho * factor), int(alto * factor)), interpolation=cv2.INTER_AREA)
-    cv2.imwrite(ruta_salida, bgr, [cv2.IMWRITE_JPEG_QUALITY, 90])
+    if ruta_ampliada:
+        _guardar_reducida(bgr, ruta_ampliada, lado_ampliado, 88)
+    _guardar_reducida(bgr, ruta_salida, lado_maximo, 90)
 
 
 def analizar_imagen(ruta, nombre, ruta_marcada):
@@ -249,6 +265,7 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
     for numero, c in enumerate(contornos, start=1):
         medida = medir_cabeza(rgb, c)
         medida["numero"] = numero
+        medida["contorno"] = contorno_simple(c)
         cabezas.append(medida)
 
     resultado["cabezas"] = cabezas
@@ -260,8 +277,10 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
     resultado["histograma"] = histograma([c["area_px"] for c in cabezas])  # RF-26
     resultado["grados"] = asignar_grados(cabezas)              # RF-32, RF-34
 
-    dibujar_marcas(rgb, contornos, ruta_marcada)
+    ruta_ampliada = os.path.splitext(ruta_marcada)[0] + "_ampliada.jpg"
+    dibujar_marcas(rgb, contornos, ruta_marcada, ruta_ampliada=ruta_ampliada)
     resultado["marcada"] = os.path.basename(ruta_marcada)
+    resultado["marcada_ampliada"] = os.path.basename(ruta_ampliada)       # para el zoom de la pantalla de resultados
 
     if len(cabezas) < 3:
         # RF-40: contó, pero con tan pocos espermatozoides la distribución de tamaños no dice nada

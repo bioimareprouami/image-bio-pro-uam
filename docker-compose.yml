@@ -10,6 +10,8 @@ services:
       # Hilos que usa PyTorch por análisis. Si no se define, usa hasta 4 según las CPU del servidor
       TORCH_HILOS: ${TORCH_HILOS:-}
       OPENBLAS_NUM_THREADS: "1"
+      # Solo desarrollo: 1 muestra un temporizador en la pantalla de espera. En producción se deja sin definir.
+      MOSTRAR_TEMPORIZADOR: ${MOSTRAR_TEMPORIZADOR:-}
     volumes:
       - datos:/srv/imagebio/instance
       - ./model:/srv/imagebio/model:ro

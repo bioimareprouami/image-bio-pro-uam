@@ -309,6 +309,102 @@ h1.titulo-pagina {
   background: #000;
 }
 
+/* Imagen marcada con zoom: el clic abre el visor */
+.enlace-ampliar {
+  position: relative;
+  display: block;
+  cursor: zoom-in;
+}
+
+.indicio-zoom {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 2px 10px;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+/* Zonas invisibles sobre cada espermatozoide: al pasar el mouse se resaltan y sale su detalle */
+.capa-esperma {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;     /* solo las zonas reciben el mouse; lo demás deja pasar el clic al enlace */
+}
+
+.zona-esperma {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 10px;       /* margen para alcanzar los muy delgados o muy chicos */
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  pointer-events: all;
+}
+
+.zona-esperma:hover {
+  fill: rgba(255, 214, 0, 0.18);
+  stroke: #ffd600;
+  stroke-width: 2px;
+}
+
+#detalle-esperma {
+  position: fixed;
+  z-index: 2000;            /* arriba del visor con zoom (ventana de Bootstrap: 1055) */
+  display: none;
+  max-width: 260px;
+  padding: 8px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #fff;
+  background: rgba(20, 20, 20, 0.94);
+  border-left: 3px solid #ffd600;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+#detalle-esperma.visible {
+  display: block;
+}
+
+#detalle-esperma .nota {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #bbb;
+}
+
+/* Visor con zoom: ocupa toda la ventana menos la barra de arriba */
+.visor-vista {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 52px);
+  background: #000;
+  cursor: grab;
+  touch-action: none;       /* los gestos los maneja sitio.js */
+  user-select: none;
+}
+
+.visor-vista.moviendo {
+  cursor: grabbing;
+}
+
+.visor-lienzo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.visor-lienzo img {
+  display: block;
+  max-width: none;
+  -webkit-user-drag: none;
+}
+
 /* Barra que agrega el traductor de Google: se oculta, el selector es el del menú */
 .goog-te-banner-frame,
 .skiptranslate iframe,
@@ -322,7 +418,7 @@ body {
 
 /* Al imprimir (RF-43) solo salen los resultados */
 @media print {
-  header, .pie, .no-imprimir {
+  header, .pie, .no-imprimir, .indicio-zoom, .capa-esperma, #detalle-esperma {
     display: none !important;
   }
 }

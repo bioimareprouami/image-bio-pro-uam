@@ -42,8 +42,26 @@
     {% if img.cabezas %}
       <div class="row g-4">
         <div class="col-lg-7">
-          <img class="imagen-marcada" src="{{ url_for('analisis.imagen_marcada', analisis_id=analisis.id, nombre=img.marcada) }}"
-               alt="Imagen con cada espermatozoide marcado y numerado">
+          {# Clic en la imagen: se abre el visor con zoom (copia más grande si existe; los análisis viejos usan la misma) #}
+          {% set ampliada = img.marcada_ampliada or img.marcada %}
+          <a class="enlace-ampliar" href="{{ url_for('analisis.imagen_marcada', analisis_id=analisis.id, nombre=ampliada) }}"
+             data-ampliar="{{ url_for('analisis.imagen_marcada', analisis_id=analisis.id, nombre=ampliada) }}"
+             data-titulo="{{ img.nombre }}" title="Clic para ampliar">
+            <img class="imagen-marcada" src="{{ url_for('analisis.imagen_marcada', analisis_id=analisis.id, nombre=img.marcada) }}"
+                 alt="Imagen con cada espermatozoide marcado y numerado">
+            {# Una zona invisible por espermatozoide: al pasar el mouse sale su detalle (sitio.js). Las más grandes
+               van primero para que las chicas que quedan dentro sigan alcanzables. #}
+            {% if img.metadatos and img.metadatos.ancho %}
+              <svg class="capa-esperma" viewBox="0 0 {{ img.metadatos.ancho }} {{ img.metadatos.alto }}" preserveAspectRatio="none" aria-hidden="true">
+                {% for c in img.cabezas | sort(attribute='area_px', reverse=true) if c.contorno %}
+                  <polygon class="zona-esperma" points="{% for p in c.contorno %}{{ p[0] }},{{ p[1] }} {% endfor %}"
+                           data-numero="{{ c.numero }}" data-area-px="{{ c.area_px }}" data-largo-px="{{ c.longitud_px }}"
+                           data-area-um="{{ c.area_um2 }}" data-largo-um="{{ c.longitud_um }}"></polygon>
+                {% endfor %}
+              </svg>
+            {% endif %}
+            <span class="indicio-zoom">Clic para ampliar</span>
+          </a>
         </div>
         <div class="col-lg-5">
           <div class="row g-2 mb-3">
@@ -95,6 +113,30 @@
     {% if analisis.pdf %}<a class="btn btn-borde" href="{{ url_for('analisis.descargar_pdf', analisis_id=analisis.id) }}">Descargar PDF</a>{% endif %}
     <a class="btn btn-borde" href="{{ url_for('analisis.descargar_csv', analisis_id=analisis.id) }}">Descargar CSV</a>
     <a class="btn btn-link" href="{{ url_for('analisis.ia') }}">Analizar otras imágenes</a>
+  </div>
+
+  {# Visor con zoom de la imagen marcada: lo abre el clic en la imagen y lo maneja sitio.js #}
+  <div class="modal fade no-imprimir" id="visor-zoom" tabindex="-1" aria-labelledby="visor-zoom-titulo" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header border-secondary py-2">
+          <h2 class="modal-title fs-6 text-truncate me-3 notranslate" id="visor-zoom-titulo"></h2>
+          <div class="btn-group btn-group-sm me-3" role="group" aria-label="Zoom">
+            <button type="button" class="btn btn-outline-light" data-zoom="menos" title="Alejar" aria-label="Alejar">&minus;</button>
+            <button type="button" class="btn btn-outline-light" data-zoom="mas" title="Acercar" aria-label="Acercar">+</button>
+            <button type="button" class="btn btn-outline-light" data-zoom="ajustar" title="Ver la imagen entera">Ajustar</button>
+            <button type="button" class="btn btn-outline-light" data-zoom="real" title="Tamaño real: un píxel de la imagen por píxel de pantalla">100%</button>
+          </div>
+          <span class="small text-white-50 d-none d-md-inline me-3">Rueda para acercar · arrastra para mover · doble clic para acercar</span>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="visor-vista">
+            <div class="visor-lienzo"><img src="" alt="Imagen con cada espermatozoide marcado y numerado, ampliada" draggable="false"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
 
