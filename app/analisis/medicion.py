@@ -30,6 +30,10 @@ GRADO_ALTO_ES_ROJO = True
 # una raya de 300 px equivale a 5 micras, es decir, 60 px = 1 micra. Más adelante la
 # escala se leerá de la raya de cada imagen; por ahora es una sola constante para todas.
 PX_POR_MICRA = 60
+# La imagen marcada lleva una regla de LONGITUD_REGLA_PX píxeles (de la foto original) con su valor en micras,
+# para que se vea la escala que se está usando. Con 60 px por micra, 300 px son 5 micras.
+LONGITUD_REGLA_PX = 300
+MARGEN_REGLA_PX = 40
 
 BINS_HISTOGRAMA = 10
 FORMATOS_SIN_PERDIDA = {"BMP", "PNG", "TIFF"}
@@ -150,8 +154,28 @@ def histograma(valores, minimo=None, maximo=None, bins=BINS_HISTOGRAMA):
             "frecuencias": [int(f) for f in frecuencias]}
 
 
+def dibujar_regla(bgr):
+    """Dibuja abajo a la izquierda una regla de LONGITUD_REGLA_PX píxeles con lo que vale en micras.
+    Va con borde negro para que se vea sobre fondos claros y oscuros."""
+    alto, ancho = bgr.shape[:2]
+    if ancho < LONGITUD_REGLA_PX + 2 * MARGEN_REGLA_PX or alto < 3 * MARGEN_REGLA_PX:
+        return                                  # la imagen es muy chica para la regla
+    micras = LONGITUD_REGLA_PX / PX_POR_MICRA
+    texto = f"{LONGITUD_REGLA_PX} px = {micras:g} micras (escala provisional)"
+    x0, x1 = MARGEN_REGLA_PX, MARGEN_REGLA_PX + LONGITUD_REGLA_PX
+    y = alto - MARGEN_REGLA_PX
+    grosor = max(3, min(alto, ancho) // 250)
+    escala_texto = max(0.6, min(alto, ancho) / 900)
+    for color, extra in (((0, 0, 0), 4), ((255, 255, 255), 0)):          # primero el borde, luego el trazo blanco
+        cv2.line(bgr, (x0, y), (x1, y), color, grosor + extra)
+        for x in (x0, x1):                                                # topes en los extremos
+            cv2.line(bgr, (x, y - 3 * grosor), (x, y + 3 * grosor), color, grosor + extra)
+        cv2.putText(bgr, texto, (x0, y - 5 * grosor), cv2.FONT_HERSHEY_SIMPLEX, escala_texto, color,
+                    max(1, grosor // 2) + (3 if extra else 0), cv2.LINE_AA)
+
+
 def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400):
-    """Guarda una copia reducida con cada cabeza marcada y numerada."""
+    """Guarda una copia reducida con cada cabeza marcada y numerada, y la regla de escala."""
     bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
     escala_texto = max(0.35, min(bgr.shape[:2]) / 1500)
     for numero, c in enumerate(contornos, start=1):
@@ -159,6 +183,7 @@ def dibujar_marcas(rgb, contornos, ruta_salida, lado_maximo=1400):
         x, y, _, _ = cv2.boundingRect(c)
         cv2.putText(bgr, str(numero), (x, max(y - 2, 10)), cv2.FONT_HERSHEY_SIMPLEX,
                     escala_texto, (255, 255, 255), 1, cv2.LINE_AA)
+    dibujar_regla(bgr)
     alto, ancho = bgr.shape[:2]
     factor = lado_maximo / max(alto, ancho)
     if factor < 1:

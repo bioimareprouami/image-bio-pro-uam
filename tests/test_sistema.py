@@ -154,3 +154,26 @@ def test_contacto_guarda_mensaje(app, cliente):
     cliente.post("/contacto", data={"nombre": "Luis", "correo": "l@e.com", "mensaje": "Hola"})
     with app.app_context():
         assert Mensaje.query.count() == 1
+
+
+def test_imagen_marcada_lleva_la_regla_de_escala(tmp_path):
+    """La imagen marcada trae una regla de 300 px (5 micras con 60 px por micra), con su borde negro."""
+    from app.analisis import medicion
+    negra = np.zeros((600, 800, 3), np.uint8)
+    destino = str(tmp_path / "marcada.png")
+    medicion.dibujar_marcas(negra, [], destino)          # 800 px de ancho: no se reduce
+    gris = cv2.cvtColor(cv2.imread(destino), cv2.COLOR_BGR2GRAY)
+    y = 600 - medicion.MARGEN_REGLA_PX
+    x0 = medicion.MARGEN_REGLA_PX
+    largo = medicion.LONGITUD_REGLA_PX
+    assert gris[y, x0 + largo // 2] == 255              # el trazo blanco de la regla
+    assert gris[y, x0 + largo + 20] == 0                # termina a los 300 px
+    assert medicion.LONGITUD_REGLA_PX / medicion.PX_POR_MICRA == 5
+
+
+def test_imagen_muy_chica_no_lleva_regla(tmp_path):
+    from app.analisis import medicion
+    chica = np.zeros((100, 120, 3), np.uint8)
+    destino = str(tmp_path / "chica.png")
+    medicion.dibujar_marcas(chica, [], destino)
+    assert cv2.imread(destino).max() == 0               # no se dibuja nada

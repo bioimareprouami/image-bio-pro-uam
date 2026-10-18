@@ -98,7 +98,8 @@ def generar_pdf(resultados, usuario, fecha, carpeta_marcadas, ruta_salida):
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(150, 60, 0)
     pdf.multi_cell(0, 5, _texto(
-        "Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes. "
+        "Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes "
+        "(la regla de la imagen marcada mide 300 px = 5 micras). "
         "Las medidas en micras son aproximadas."))
     pdf.set_text_color(0, 0, 0)
     if resultados.get("provisional"):
