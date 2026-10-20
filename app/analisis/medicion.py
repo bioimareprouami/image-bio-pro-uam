@@ -109,7 +109,9 @@ def detectar_espermatozoides(rgb):
         except Exception:
             log.exception("Falló el modelo; se usa la detección provisional")
             return detectar_cabezas(rgb), "provisional", "No se pudo usar el modelo; se usó la detección provisional."
-    return detectar_cabezas(rgb), "provisional", None
+    motivo = modelo.motivo_no_disponible()
+    log.warning("Modelos no cargados: %s Se usa la detección provisional.", motivo)
+    return detectar_cabezas(rgb), "provisional", f"Los modelos entrenados NO se cargaron. {motivo}"
 
 
 def medir_cabeza(rgb, contorno):
@@ -252,7 +254,8 @@ def analizar_imagen(ruta, nombre, ruta_marcada):
     contornos, detector, aviso = detectar_espermatozoides(rgb)
     resultado["detector"] = detector
     if aviso:
-        resultado["mensajes"].append(("warning", aviso))
+        resultado["motivo_provisional"] = aviso
+        resultado["mensajes"].append(("danger", aviso))
     if not contornos:
         # RF-38 y RF-41: decir claramente que no se analizó, en lugar de dar un resultado dudoso
         resultado["estado"] = "no_analizada"

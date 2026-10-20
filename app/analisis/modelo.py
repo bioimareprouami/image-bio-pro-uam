@@ -50,6 +50,17 @@ def disponible():
     return all(os.path.isfile(_ruta(t)) for t in ARCHIVOS)
 
 
+def motivo_no_disponible():
+    """Texto que explica por qué los modelos no se pueden usar, o None si están disponibles."""
+    faltan_libs = [m for m in ("torch", "torchvision") if not importlib.util.find_spec(m)]
+    if faltan_libs:
+        return f"PyTorch no está instalado (falta {', '.join(faltan_libs)})."
+    faltan = [ARCHIVOS[t] for t in ARCHIVOS if not os.path.isfile(_ruta(t))]
+    if faltan:
+        return f"No se encontraron los archivos {', '.join(faltan)} en {carpeta_modelos()}."
+    return None
+
+
 def tipo_de_foto(rgb):
     """'campo_claro' si el fondo es claro, 'fluorescencia' si es oscuro (mediana del brillo máximo por píxel)."""
     pequena = cv2.resize(rgb, None, fx=1 / 8, fy=1 / 8, interpolation=cv2.INTER_AREA)

@@ -105,8 +105,10 @@ def generar_pdf(resultados, usuario, fecha, carpeta_marcadas, ruta_salida):
         pdf.set_font("Helvetica", "I", 9)
         pdf.set_text_color(150, 60, 0)
         pdf.multi_cell(0, 5, _texto(
-            "Detección provisional por umbral de color, sin el modelo entrenado. "
-            "Los resultados sirven para probar el sistema y no tienen validez científica."))
+            "LOS MODELOS ENTRENADOS NO SE CARGARON. "
+            + (resultados.get("motivo_provisional") or "") + " "
+            "Se usó una detección provisional por umbral de color: el conteo y las medidas no son "
+            "confiables y no tienen validez científica."))
         pdf.set_text_color(0, 0, 0)
     elif resultados.get("modelo_preliminar"):
         pdf.ln(2)

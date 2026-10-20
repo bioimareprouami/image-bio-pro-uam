@@ -11,12 +11,10 @@
   <p class="leyenda mb-3">{{ current_user.nombre }} · {{ analisis.fecha.strftime('%d/%m/%Y %H:%M:%S') }}</p>
 
   {% if resultados.provisional %}
-    <div class="alert alert-warning py-2">
-      Detección provisional por umbral de color, sin el modelo entrenado. Los resultados sirven para probar el sistema y no tienen validez científica.
-    </div>
-  {% elif resultados.modelo_preliminar %}
-    <div class="alert alert-warning py-2">
-      Modelo preliminar, entrenado con pocas imágenes: los resultados son aproximados. Donde hay muchos espermatozoides juntos el conteo puede ser menos exacto.
+    <div class="alert alert-danger py-2">
+      <strong>Los modelos entrenados no se cargaron.</strong>
+      {% if resultados.motivo_provisional %}<br>{{ resultados.motivo_provisional }}{% endif %}
+      <br>Se usó una detección provisional por umbral de color: el conteo y las medidas no son confiables y no tienen validez científica.
     </div>
   {% endif %}
 

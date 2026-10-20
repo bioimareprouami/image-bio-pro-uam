@@ -83,6 +83,7 @@ def _guardar_y_mostrar(imagenes):
     resultados = {
         # Provisional si alguna imagen se analizó con la detección por umbral de color; si no, con los modelos
         "provisional": "provisional" in detectores,
+        "motivo_provisional": next((img["motivo_provisional"] for img in imagenes if img.get("motivo_provisional")), None),
         "modelo_preliminar": bool(detectores - {"provisional"}),
         "imagenes": imagenes,
         "promedios": medicion.promedios_entre_imagenes(imagenes),
