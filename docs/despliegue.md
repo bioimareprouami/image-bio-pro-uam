@@ -16,6 +16,9 @@ cd imagebio
 
 # Clave secreta del sitio (no se sube a Git)
 echo "SECRET_KEY=$(openssl rand -hex 32)" > .env
+
+# Solo en un servidor nuevo, sin certificado todavía: Nginx arranca con la configuración de solo HTTP
+echo "NGINX_CONF=nginx-http.conf" >> .env
 ```
 
 ## 2. Copiar los modelos y levantar el sitio
@@ -50,14 +53,14 @@ docker run --rm \
 
 (Los volúmenes se llaman `<carpeta>_certbot-web`; si la carpeta no se llama `imagebio`, ajusta el prefijo con `docker volume ls`.)
 
-Después, en `deploy/nginx.conf`, cambia el bloque del puerto 80 para que redirija a HTTPS y agrega un bloque `listen 443 ssl` con:
+`deploy/nginx.conf` ya trae la configuración con HTTPS, con el dominio `imagebiopro.cloud` (con otro dominio, cambia los nombres en ese archivo, que aparecen en las rutas del certificado y en `server_name`). Para usarla, quita la línea `NGINX_CONF=nginx-http.conf` del archivo `.env` y vuelve a levantar Nginx:
 
-```
-ssl_certificate     /etc/letsencrypt/live/TU-DOMINIO/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/TU-DOMINIO/privkey.pem;
+```bash
+nano .env                 # borra la línea NGINX_CONF=nginx-http.conf
+docker compose up -d nginx
 ```
 
-y el mismo `location /` de proxy. Luego `docker compose restart nginx`.
+El sitio queda en `https://imagebiopro.cloud`, y HTTP redirige a HTTPS.
 
 Renovación (el certificado dura 90 días): programa en `crontab -e`
 
@@ -67,11 +70,15 @@ Renovación (el certificado dura 90 días): programa en `crontab -e`
 
 ## 4. Actualizar el sitio
 
+Los cambios se hacen en el repositorio (`git commit` y `git push` desde tu computadora) y se bajan al servidor:
+
 ```bash
 cd ~/imagebio
 git pull
 docker compose up -d --build
 ```
+
+Los modelos (`.pt`) y el archivo `.env` no están en Git: no cambian con `git pull`.
 
 ## 5. Respaldo de los datos
 
