@@ -114,14 +114,6 @@ def generar_pdf(resultados, usuario, fecha, carpeta_marcadas, ruta_salida):
             "Se usó una detección provisional por umbral de color: el conteo y las medidas no son "
             "confiables y no tienen validez científica."))
         pdf.set_text_color(0, 0, 0)
-    elif resultados.get("modelo_preliminar"):
-        pdf.ln(2)
-        pdf.set_font("Helvetica", "I", 9)
-        pdf.set_text_color(150, 60, 0)
-        pdf.multi_cell(0, 5, _texto(
-            "Modelo preliminar, entrenado con pocas imágenes: los resultados son aproximados. "
-            "Donde hay muchos espermatozoides juntos el conteo puede ser menos exacto."))
-        pdf.set_text_color(0, 0, 0)
 
     for img in resultados["imagenes"]:
         _pagina_imagen(pdf, img, carpeta_marcadas)
