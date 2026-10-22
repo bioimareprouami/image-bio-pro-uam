@@ -187,7 +187,8 @@ def test_imagen_muy_chica_no_lleva_regla(tmp_path):
 def test_sin_modelos_se_avisa_que_la_deteccion_es_provisional(cliente):
     registrar(cliente)
     pagina = cliente.post("/analizar/prueba", follow_redirects=True).get_data(as_text=True)
-    assert "Detección provisional" in pagina
+    assert "Los modelos entrenados no se cargaron" in pagina
+    assert "detección provisional" in pagina
     assert "Modelo preliminar" not in pagina
 
 

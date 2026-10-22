@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   iniciarVisorZoom();
   iniciarDetalleEsperma();
+  iniciarNarrativa();
 
   // Ventana de infografías: pone la imagen, el título y el texto de la elegida (RF-07)
   const ventana = document.getElementById("ventana");
@@ -60,6 +61,38 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Página de inicio: los capítulos aparecen al llegar a ellos y una barra marca cuánto se ha recorrido. Con movimiento
+// reducido no se hace nada: todo queda visible desde el inicio. Los capítulos que ya están a la vista no se ocultan.
+function iniciarNarrativa() {
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const capitulos = document.querySelectorAll(".capitulo");
+  if (reducido || !capitulos.length || !("IntersectionObserver" in window)) return;
+
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada) => {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.remove("antes");
+        observador.unobserve(entrada.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  capitulos.forEach((capitulo) => {
+    if (capitulo.getBoundingClientRect().top > window.innerHeight) {
+      capitulo.classList.add("antes");
+      observador.observe(capitulo);
+    }
+  });
+
+  const barra = document.getElementById("progreso-lectura");
+  if (!barra) return;
+  const poner = () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    barra.style.transform = `scaleX(${total > 0 ? Math.min(window.scrollY / total, 1) : 0})`;
+  };
+  window.addEventListener("scroll", poner, { passive: true });
+  poner();
+}
 
 // Temporizador de la pantalla de espera. Solo existe en desarrollo (MOSTRAR_TEMPORIZADOR=1): si el elemento
 // no está en la página, no hace nada.

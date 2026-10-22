@@ -11,14 +11,14 @@
   <p class="leyenda mb-3">{{ current_user.nombre }} · {{ analisis.fecha.strftime('%d/%m/%Y %H:%M:%S') }}</p>
 
   {% if resultados.provisional %}
-    <div class="alert alert-danger py-2">
+    <div class="alert alert-danger" role="alert">
       <strong>Los modelos entrenados no se cargaron.</strong>
       {% if resultados.motivo_provisional %}<br>{{ resultados.motivo_provisional }}{% endif %}
       <br>Se usó una detección provisional por umbral de color: el conteo y las medidas no son confiables y no tienen validez científica.
     </div>
   {% endif %}
 
-  <div class="alert alert-info py-2">
+  <div class="alert alert-info">
     Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes (la regla de la imagen marcada mide 300 px = 5 micras). Las medidas en micras son aproximadas.
   </div>
 
@@ -27,7 +27,7 @@
     <div class="titulo-bloque"><span class="notranslate">{{ img.nombre }}</span></div>
 
     {% for categoria, mensaje in img.mensajes %}
-      <div class="alert alert-{{ categoria }} py-2">{{ mensaje }}</div>
+      <div class="alert alert-{{ categoria }}"{% if categoria == 'danger' %} role="alert"{% endif %}>{{ mensaje }}</div>
     {% endfor %}
 
     {% if img.metadatos %}
@@ -78,14 +78,15 @@
             </p>
           {% endif %}
           <div class="titulo-bloque mt-3"><span>Distribución de tamaños</span></div>
-          <canvas id="histograma-{{ i }}" height="230"></canvas>
+          <canvas id="histograma-{{ i }}" height="230" role="img"
+                  aria-label="Histograma de la distribución de tamaños de {{ img.nombre }}. Los mismos datos están en la tabla Detalle por espermatozoide."></canvas>
         </div>
       </div>
 
       <div class="row g-4 mt-1">
         <div class="col-12">
           <div class="titulo-bloque mt-2"><span>Detalle por espermatozoide</span></div>
-          <div class="table-responsive" style="max-height: 360px; overflow-y: auto">
+          <div class="table-responsive tabla-detalle">
             <table class="table table-sm">
               <thead><tr><th>#</th><th>Área (px)</th><th>Largo (px)</th><th>Área (µm²)</th><th>Largo (µm)</th></tr></thead>
               <tbody>
@@ -102,7 +103,8 @@
 
   {% if resultados.promedios %}
     <div class="titulo-bloque"><span>Promedio entre las {{ resultados.promedios.imagenes }} imágenes</span></div>
-    <canvas id="histograma-promedio" height="110"></canvas>
+    <canvas id="histograma-promedio" height="110" role="img"
+            aria-label="Histograma del promedio de células por intervalo de tamaño entre todas las imágenes."></canvas>
   {% endif %}
 
   {# RF-43: hasta abajo, la opción de imprimir; RF-20: CSV y PDF #}
@@ -141,11 +143,17 @@
 {% block scripts %}
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script>
+    // Colores de barras: relleno claro y borde marcado
+    Chart.defaults.font.family = '"Crimson Text", Georgia, serif';
+    Chart.defaults.font.size = 14;
+    Chart.defaults.color = "#0c4a6e";
+
     function graficaBarras(id, bordes, valores, etiquetaY) {
       const etiquetas = valores.map((_, i) => `${bordes[i]}–${bordes[i + 1]}`);
       new Chart(document.getElementById(id), {
         type: "bar",
-        data: { labels: etiquetas, datasets: [{ label: etiquetaY, data: valores, backgroundColor: "#a8201a",
+        data: { labels: etiquetas, datasets: [{ label: etiquetaY, data: valores, backgroundColor: "#bbdefb",
+                                                borderColor: "#1976d2", borderWidth: 1.5,
                                                 barPercentage: 1, categoryPercentage: 0.95 }] },
         options: {
           plugins: { legend: { display: false } },

@@ -47,13 +47,13 @@
         {% with abrir_ventana = false %}{% include "sitio/_infografia.html" %}{% endwith %}
       {% endfor %}
     </div>
-    <p class="mt-3"><a href="{{ url_for('sitio.infografias') }}" style="color: var(--rojo)">Ver todas las infografías y videos &rsaquo;</a></p>
+    <p class="mt-3"><a class="enlace-bloque" href="{{ url_for('sitio.infografias') }}">Ver todas las infografías y videos &rsaquo;</a></p>
   </div>
 
-  <div class="cubierta-analisis" id="cubierta-analisis">
+  <div class="cubierta-analisis" id="cubierta-analisis" role="status" aria-live="polite">
     <div class="caja">
       <p class="mb-2"><b>Analizando las imágenes…</b></p>
-      <div class="progress" role="progressbar" aria-label="Analizando">
+      <div class="progress" role="progressbar" aria-label="Analizando" aria-busy="true">
         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
       </div>
       <p class="small mt-2 mb-0">No cierres esta página.</p>
