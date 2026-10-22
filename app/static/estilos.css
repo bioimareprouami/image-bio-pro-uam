@@ -1,5 +1,4 @@
-/* Estilos del sitio. Sistema de diseño del sitio
-   (estilo Glassmorphism, colores "azul ADN y verde vida", tipografía EB Garamond y Crimson Text).
+/* Estilos del sitio: estilo de cristal (glassmorphism), colores azul y verde, tipografía EB Garamond y Crimson Text.
    Todos los colores salen de los tokens de abajo; no hay colores sueltos en los componentes. */
 
 :root {
@@ -19,7 +18,7 @@
   --color-on-destructive: #ffffff;
   --color-ring: #000000;
 
-  /* Tintes de apoyo para avisos (derivados de los colores principales) */
+  /* Tintes de apoyo para avisos */
   --tinte-exito: #ecfdf5;
   --texto-exito: #064e3b;
   --tinte-error: #fef2f2;
@@ -334,8 +333,7 @@ h1.titulo-pagina {
   font-weight: 600;
   font-size: 1.5rem;
   color: var(--color-foreground);
-  padding: 0 0 var(--e1) var(--e2);
-  border-left: 5px solid var(--color-accent);
+  padding: 0 0 var(--e1);
   line-height: 1.2;
 }
 
@@ -447,7 +445,6 @@ h1.titulo-pagina {
   position: relative;
   padding: var(--e2) var(--e2) var(--e2) 52px;
   border: 1px solid var(--color-border);
-  border-left-width: 5px;
   border-radius: var(--radio-control);
   color: var(--color-foreground);
   background: var(--color-muted);
@@ -465,7 +462,7 @@ h1.titulo-pagina {
 }
 
 .alert-info {
-  border-left-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .alert-info::before {
@@ -475,7 +472,7 @@ h1.titulo-pagina {
 .alert-success {
   background: var(--tinte-exito);
   color: var(--texto-exito);
-  border-left-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .alert-success::before {
@@ -485,7 +482,6 @@ h1.titulo-pagina {
 .alert-warning {
   background: var(--color-card);
   border: 2px solid var(--color-foreground);
-  border-left-width: 6px;
 }
 
 .alert-warning::before {
@@ -495,8 +491,7 @@ h1.titulo-pagina {
 .alert-danger {
   background: var(--tinte-error);
   color: var(--texto-error);
-  border-color: var(--color-destructive);
-  border-left-width: 6px;
+  border: 2px solid var(--color-destructive);
 }
 
 .alert-danger::before {
@@ -747,7 +742,7 @@ h1.titulo-pagina {
   line-height: 1.45;
   color: var(--color-background);
   background: rgba(12, 74, 110, 0.96);
-  border-left: 4px solid var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radio-control);
   pointer-events: none;
 }
