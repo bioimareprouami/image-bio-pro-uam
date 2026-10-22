@@ -9,7 +9,10 @@ matplotlib.use("Agg")  # sin ventana: el servidor no tiene pantalla
 import matplotlib.pyplot as plt  # noqa: E402
 from fpdf import FPDF  # noqa: E402
 
-ROJO = (168, 32, 26)
+# Colores del sitio: azul claro, verde y azul oscuro para los textos
+AZUL = (14, 165, 233)
+VERDE = (5, 150, 105)
+AZUL_OSCURO = (12, 74, 110)
 
 
 def generar_csv(resultados):
@@ -33,8 +36,8 @@ def _texto(valor):
 def _grafica_barras(bordes, valores, titulo, eje_y):
     fig, ax = plt.subplots(figsize=(6, 2.8), dpi=150)
     anchos = [bordes[i + 1] - bordes[i] for i in range(len(valores))]
-    ax.bar(bordes[:-1], valores, width=anchos, align="edge", color="#a8201a",
-           edgecolor="white")
+    ax.bar(bordes[:-1], valores, width=anchos, align="edge", color="#bbdefb",
+           edgecolor="#1976d2", linewidth=1)
     ax.set_title(titulo, fontsize=10)
     ax.set_xlabel("Área del espermatozoide (px)", fontsize=9)
     ax.set_ylabel(eje_y, fontsize=9)
@@ -56,17 +59,19 @@ class ReportePDF(FPDF):
 
     def header(self):
         # Logotipo provisional hasta contar con el definitivo (RF-45)
-        self.set_fill_color(*ROJO)
+        self.set_fill_color(*AZUL)
         self.ellipse(12, 9, 10, 10, style="F")
+        self.set_fill_color(*VERDE)
+        self.ellipse(15.5, 12.5, 3, 3, style="F")
         self.set_xy(25, 9)
         self.set_font("Helvetica", "B", 13)
-        self.set_text_color(*ROJO)
+        self.set_text_color(*AZUL_OSCURO)
         self.cell(0, 6, "IMAGE BIO PRO")
         self.set_xy(25, 15)
         self.set_font("Helvetica", "", 8)
         self.set_text_color(90, 90, 90)
         self.cell(0, 4, _texto("Análisis de imágenes de microscopio"))
-        self.set_draw_color(*ROJO)
+        self.set_draw_color(*AZUL)
         self.line(12, 22, self.w - 12, 22)
         self.set_y(26)
         self.set_text_color(0, 0, 0)
@@ -164,17 +169,15 @@ def _pagina_imagen(pdf, img, carpeta_marcadas):
     pdf.set_font("Helvetica", "B", 10)
     pdf.cell(0, 6, _texto(f"Conteo de células: {img['conteo']}"), new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 9)
-    for etiqueta, clave in (("Área del espermatozoide (px)", "area"), ("Largo del espermatozoide (px)", "longitud")):
+    # Primero las micras (como en la pantalla de resultados) y después los píxeles
+    medidas = [("Área del espermatozoide (µm²)", "area_um"), ("Largo del espermatozoide (µm)", "longitud_um")] \
+        if img.get("area_um") else []
+    medidas += [("Área del espermatozoide (px)", "area"), ("Largo del espermatozoide (px)", "longitud")]
+    for etiqueta, clave in medidas:
         r = img[clave]
         pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
                               f"mínimo {r['minimo']}, máximo {r['maximo']}"),
                  new_x="LMARGIN", new_y="NEXT")
-    if img.get("area_um"):
-        for etiqueta, clave in (("Área del espermatozoide (µm²)", "area_um"), ("Largo del espermatozoide (µm)", "longitud_um")):
-            r = img[clave]
-            pdf.cell(0, 5, _texto(f"{etiqueta}: media {r['media']}, desviación estándar {r['desviacion']}, "
-                                  f"mínimo {r['minimo']}, máximo {r['maximo']}"),
-                     new_x="LMARGIN", new_y="NEXT")
     pdf.ln(2)
 
     h = img["histograma"]
