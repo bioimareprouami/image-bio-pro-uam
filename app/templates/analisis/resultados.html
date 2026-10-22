@@ -19,7 +19,7 @@
   {% endif %}
 
   <div class="alert alert-info">
-    Escala provisional, sin calibrar: se usa 60 px = 1 micra para todas las imágenes (la regla de la imagen marcada mide 300 px = 5 micras). Las medidas en micras son aproximadas.
+    Para estandarizar el tamaño de las imágenes se usa la misma escala en todas: 60 px = 1 µm. La regla de la imagen marcada mide 300 px, es decir, 5 µm.
   </div>
 
   {% for img in resultados.imagenes %}
@@ -64,8 +64,9 @@
         <div class="col-lg-5">
           <div class="row g-2 mb-3">
             <div class="col-4"><div class="dato"><div class="numero">{{ img.conteo }}</div><div class="small">espermatozoides</div></div></div>
-            <div class="col-4"><div class="dato"><div class="numero">{{ img.area.media }}</div><div class="small">área media (px)</div></div></div>
-            <div class="col-4"><div class="dato"><div class="numero">{{ img.area.desviacion }}</div><div class="small">desv. estándar</div></div></div>
+            {% set unidad = 'µm²' if img.area_um else 'px' %}
+            <div class="col-4"><div class="dato"><div class="numero">{{ img.area_um.media if img.area_um else img.area.media }}</div><div class="small">área media ({{ unidad }})</div></div></div>
+            <div class="col-4"><div class="dato"><div class="numero">{{ img.area_um.desviacion if img.area_um else img.area.desviacion }}</div><div class="small">desv. estándar ({{ unidad }})</div></div></div>
           </div>
           <p class="small mb-1">
             Largo del espermatozoide: media {{ img.longitud.media }} px, desviación estándar {{ img.longitud.desviacion }} px
@@ -73,8 +74,8 @@
           </p>
           {% if img.area_um %}
             <p class="small mb-1">
-              En micras (escala provisional): área media {{ img.area_um.media }} µm², desviación estándar {{ img.area_um.desviacion }};
-              largo medio {{ img.longitud_um.media }} µm, desviación estándar {{ img.longitud_um.desviacion }}.
+              En píxeles: área media {{ img.area.media }} px², desviación estándar {{ img.area.desviacion }} px².
+              En micras, el largo medio es {{ img.longitud_um.media }} µm, con desviación estándar {{ img.longitud_um.desviacion }} µm.
             </p>
           {% endif %}
           <div class="titulo-bloque mt-3"><span>Distribución de tamaños</span></div>

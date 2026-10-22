@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formulario.addEventListener("submit", () => {
       document.getElementById("cubierta-analisis").classList.add("visible");
       iniciarTemporizador();
+      iniciarAvisoEspera();
     });
   });
 
@@ -92,6 +93,13 @@ function iniciarNarrativa() {
   };
   window.addEventListener("scroll", poner, { passive: true });
   poner();
+}
+
+// Pasado un minuto de espera, la pantalla avisa que el análisis sigue en curso y que es normal que tarde.
+function iniciarAvisoEspera() {
+  const aviso = document.getElementById("aviso-espera");
+  if (!aviso) return;
+  setTimeout(() => { aviso.hidden = false; }, 60000);
 }
 
 // Temporizador de la pantalla de espera. Solo existe en desarrollo (MOSTRAR_TEMPORIZADOR=1): si el elemento
@@ -232,7 +240,7 @@ function iniciarDetalleEsperma() {
       `<b>Espermatozoide n.º ${d.numero}</b>` +
       `<div>Área: ${numero(d.areaPx, 0)} px · ${numero(d.areaUm, 3)} µm²</div>` +
       `<div>Largo: ${numero(d.largoPx, 1)} px · ${numero(d.largoUm, 2)} µm</div>` +
-      `<div class="nota">Micras con escala provisional</div>`;
+      `<div class="nota">Micras con la escala estándar del sitio</div>`;
   }
   function colocar(evento) {
     const margen = 14;

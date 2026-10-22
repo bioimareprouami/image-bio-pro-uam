@@ -192,7 +192,7 @@ def dibujar_regla(bgr):
     if ancho < LONGITUD_REGLA_PX + 2 * MARGEN_REGLA_PX or alto < 3 * MARGEN_REGLA_PX:
         return                                  # la imagen es muy chica para la regla
     micras = LONGITUD_REGLA_PX / PX_POR_MICRA
-    texto = f"{LONGITUD_REGLA_PX} px = {micras:g} micras (escala provisional)"
+    texto = f"{LONGITUD_REGLA_PX} px = {micras:g} micras"
     x0, x1 = MARGEN_REGLA_PX, MARGEN_REGLA_PX + LONGITUD_REGLA_PX
     y = alto - MARGEN_REGLA_PX
     grosor = max(3, min(alto, ancho) // 250)
