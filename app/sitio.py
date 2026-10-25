@@ -59,7 +59,8 @@ INFOGRAFIAS = [
 ]
 
 # Videos del curso en dos secciones. Cada video lleva su número en el curso (1 a 15) y el módulo al que
-# pertenece. youtube_id es lo que va después de "watch?v="; None = marcador de posición hasta subir el video.
+# pertenece. youtube_id es lo que va después de "watch?v="; None = marcador de posición hasta subir el video
+# (los ids están en _YOUTUBE).
 _VIDEOS = {
     1: ("El problema y la imagen digital", "Contar y medir espermatozoides a mano, y qué es una imagen para una computadora."),
     2: ("Inteligencia artificial, entrenamiento y la neurona", "Definiciones, entrenamiento contra inferencia y la neurona artificial."),
@@ -77,6 +78,10 @@ _VIDEOS = {
     14: ("Despliegue en la nube", "El servidor, la clave SSH, Docker y Docker Compose."),
     15: ("Nginx, dominio y HTTPS", "Cómo recibe visitas el sitio, el dominio, el certificado y el cierre."),
 }
+# Videos ya subidos a YouTube: número del curso -> id. Los que no están salen como marcador de posición.
+_YOUTUBE = {
+    1: "ucNXMX2AXAg",
+}
 # (nombre de la sección, nombre corto para la pestaña, [(número, módulo del curso), ...])
 _SECCIONES = [
     ("Desarrollo de la red neuronal convolucional", "Red neuronal",
@@ -86,7 +91,7 @@ _SECCIONES = [
 ]
 VIDEOS = [
     {"nombre": nombre, "corto": corto,
-     "videos": [{"numero": n, "modulo": m, "titulo": _VIDEOS[n][0], "texto": _VIDEOS[n][1], "youtube_id": None}
+     "videos": [{"numero": n, "modulo": m, "titulo": _VIDEOS[n][0], "texto": _VIDEOS[n][1], "youtube_id": _YOUTUBE.get(n)}
                 for n, m in lista]}
     for nombre, corto, lista in _SECCIONES
 ]

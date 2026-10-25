@@ -247,3 +247,4 @@ def test_videos_del_curso_en_infografias(cliente):
     assert html.count('class="video-item"') == 15          # los 15 videos del curso
     assert html.count('role="tab"') == 2                   # dos secciones: red neuronal y sitio web
     assert 'id="video-marco"' in html and "videos.js" in html
+    assert html.count('data-youtube="ucNXMX2AXAg"') == 1  # el video 1 ya está en YouTube; los demás aún no
