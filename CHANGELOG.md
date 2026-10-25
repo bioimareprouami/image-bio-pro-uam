@@ -2,7 +2,11 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.6.
+**En producción: 1.0.0.** El repositorio va en 1.4.7.
+
+## 1.4.7 (25 de octubre de 2026)
+
+- Aliados: Luis aparece con su nombre completo, Luis Enrique Perez Caltzontzin.
 
 ## 1.4.6 (25 de octubre de 2026)
 

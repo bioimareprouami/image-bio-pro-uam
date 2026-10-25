@@ -50,7 +50,7 @@ ALIADOS = [
     {"nombre": "Dra. Marcela Vergara Onofre", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Dr. Jesús Eduardo Barrera Morales", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": None, "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
-    {"nombre": "Luis", "foto": None, "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
+    {"nombre": "Luis Enrique Perez Caltzontzin", "foto": None, "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
 
 INFOGRAFIAS = [
