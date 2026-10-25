@@ -80,7 +80,7 @@ _VIDEOS = {
 }
 # Videos ya subidos a YouTube: número del curso -> id. Los que no están salen como marcador de posición.
 _YOUTUBE = {
-    1: "ucNXMX2AXAg",
+    # 1: "ucNXMX2AXAg",
 }
 # (nombre de la sección, nombre corto para la pestaña, [(número, módulo del curso), ...])
 _SECCIONES = [
