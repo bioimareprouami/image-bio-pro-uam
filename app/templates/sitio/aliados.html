@@ -9,13 +9,13 @@
   <div class="row g-4">
     {% for aliado in aliados %}
       <div class="col-6 col-md-3 aliado">
-        <h3 class="notranslate">{{ aliado.nombre }}</h3>
         {% if aliado.foto %}
           <img class="img-fluid" src="{{ url_for('static', filename=aliado.foto) }}" alt="{{ aliado.nombre }}">
         {% else %}
-          <div class="ph" style="height: 220px">[foto]</div>
+          <div class="ph" style="aspect-ratio: 1 / 1">[foto]</div>
         {% endif %}
-        <p class="small mt-2 mb-0">{% for linea in aliado.lineas %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+        <h3 class="notranslate">{{ aliado.nombre }}</h3>
+        <p class="small mb-0">{% for linea in aliado.lineas %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
         {% if aliado.scholar %}<p class="small mt-1 mb-0"><a href="{{ aliado.scholar }}" target="_blank" rel="noopener">Google Académico</a></p>{% endif %}
       </div>
     {% endfor %}

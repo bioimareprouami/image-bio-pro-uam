@@ -2,7 +2,11 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.2.
+**En producción: 1.0.0.** El repositorio va en 1.4.3.
+
+## 1.4.3 (25 de octubre de 2026)
+
+- Aliados: la foto va primero y todas son cuadradas y del mismo tamaño, así las filas quedan alineadas aunque el nombre ocupe más de una línea.
 
 ## 1.4.2 (25 de octubre de 2026)
 

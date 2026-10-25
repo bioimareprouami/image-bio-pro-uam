@@ -526,14 +526,21 @@ h1.titulo-pagina {
   object-fit: cover;
 }
 
-/* Aliados: nombre arriba de la foto */
+/* Aliados: la foto va primero y es cuadrada, así las filas quedan alineadas aunque el nombre ocupe más de una línea */
 .aliado h3 {
   font-family: var(--fuente-titulo);
   font-weight: 600;
   font-size: 1.25rem;
   text-align: center;
-  min-height: 34px;
-  margin-bottom: 6px;
+  margin: 12px 0 6px;
+}
+
+.aliado img,
+.aliado .ph {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 .aliado img {
