@@ -2,7 +2,12 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.3.
+**En producción: 1.0.0.** El repositorio va en 1.4.4.
+
+## 1.4.4 (25 de octubre de 2026)
+
+- El encabezado del sitio dice "Plataforma Web con Inteligencia Artificial para análisis de imágenes de microscopía de fluorescencia" debajo del nombre.
+- En celular el texto baja de línea y el círculo del logo ya no se corta.
 
 ## 1.4.3 (25 de octubre de 2026)
 

@@ -160,7 +160,7 @@ a, button, [role="button"], label[for], select, input[type="file"], input[type="
 
 .logo {
   text-align: center;
-  padding: var(--e3) 0 var(--e2);
+  padding: var(--e3) var(--e2) var(--e2);
 }
 
 .logo a {
@@ -169,7 +169,10 @@ a, button, [role="button"], label[for], select, input[type="file"], input[type="
   display: inline-flex;
   align-items: center;
   gap: var(--e2);
+  max-width: 100%;
 }
+
+.logo a > div:last-child { min-width: 0; }
 
 .logo .circulo {
   width: 64px;
@@ -1115,5 +1118,5 @@ body {
 /* Nombre largo del sitio: cabe en una línea en pantallas angostas */
 @media (max-width: 480px) {
   .logo .nombre { font-size: 1.3rem; letter-spacing: 0.02em; }
-  .logo .lema { font-size: 0.9rem; }
+  .logo .lema { font-size: 0.8rem; line-height: 1.35; }
 }
