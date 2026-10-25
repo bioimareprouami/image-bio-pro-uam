@@ -174,13 +174,21 @@ a, button, [role="button"], label[for], select, input[type="file"], input[type="
 
 .logo a > div:last-child { min-width: 0; }
 
-.logo .circulo {
-  width: 64px;
-  height: 64px;
+.logo .logo-proyecto {
+  width: 84px;
+  height: auto;
   flex: none;
-  border-radius: 50%;
-  border: 7px solid var(--color-primary);
-  background: radial-gradient(circle, var(--color-accent) 0 26%, transparent 28%);
+}
+
+/* Logo de la UAM: en la esquina superior izquierda del encabezado */
+header { position: relative; }
+
+.logo-uam {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: auto;
+  height: 76px;
 }
 
 .logo .nombre {
@@ -936,7 +944,9 @@ body {
 }
 
 @media (max-width: 767px) {
-  .logo .circulo { width: 44px; height: 44px; border-width: 5px; }
+  .logo { padding-top: 64px; }
+  .logo .logo-proyecto { width: 56px; }
+  .logo-uam { height: 46px; }
   .logo .nombre { font-size: 1.75rem; }
   .logo .lema { font-size: 1rem; }
   h1.titulo-pagina { font-size: 2rem; }
@@ -1119,4 +1129,10 @@ body {
 @media (max-width: 480px) {
   .logo .nombre { font-size: 1.3rem; letter-spacing: 0.02em; }
   .logo .lema { font-size: 0.8rem; line-height: 1.35; }
+}
+
+/* Tabletas: el logo de la UAM queda arriba del nombre para no tocar el logo del proyecto */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .logo { padding-top: 84px; }
+  .logo-uam { height: 64px; }
 }

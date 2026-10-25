@@ -2,7 +2,12 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.4.
+**En producción: 1.0.0.** El repositorio va en 1.4.5.
+
+## 1.4.5 (25 de octubre de 2026)
+
+- El encabezado muestra el logo del proyecto en lugar del círculo.
+- El logo de la UAM Unidad Iztapalapa va en la esquina superior izquierda del encabezado; en tableta y celular queda arriba del nombre para no encimarse.
 
 ## 1.4.4 (25 de octubre de 2026)
 
