@@ -2,7 +2,11 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.1.
+**En producción: 1.0.0.** El repositorio va en 1.4.2.
+
+## 1.4.2 (25 de octubre de 2026)
+
+- La guía de versionado pide que el mensaje de cada commit lleve el tipo, dos puntos, el número de versión y el resumen: `fix: v1.4.2 corrige el enlace de contacto`.
 
 ## 1.4.1 (25 de octubre de 2026)
 

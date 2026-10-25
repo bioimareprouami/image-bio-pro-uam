@@ -57,7 +57,7 @@ Reglas fijas:
 
 1. Elige el número con las reglas de arriba.
 2. En `CHANGELOG.md`, agrega la entrada de la versión nueva arriba, con la fecha, el commit y qué cambió. Va en el mismo commit.
-3. Haz el commit.
+3. Haz el commit. El mensaje lleva el tipo, dos puntos, el número de la versión y el resumen: `tipo: vA.n.x resumen`, por ejemplo `fix: v1.4.2 corrige el enlace de contacto`. Los tipos son `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `perf` y `chore`, y se agrega `!` al tipo si sube `A`.
 4. Ponle la etiqueta al commit, con un mensaje corto:
 
    ```bash
