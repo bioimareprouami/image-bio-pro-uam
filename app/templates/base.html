@@ -80,7 +80,9 @@
       <div class="d-flex flex-wrap justify-content-between gap-3">
         <div>
           <div class="nombre notranslate">BioImage-Repro UAM</div>
-          <div>UAM Unidad Xochimilco</div>
+          <div>UAM Unidad Iztapalapa</div>
+          <div>Departamento de Biología de la Reproducción</div>
+          <div>Departamento de Química</div>
         </div>
         <div class="text-md-end">
           <div>Contacto: contacto@ejemplo.com</div>
@@ -89,6 +91,18 @@
       </div>
       <div class="enlaces mt-3">
         {% for ruta, nombre in paginas[1:] %}<a href="{{ url_for(ruta) }}">{{ nombre }}</a>{% endfor %}
+      </div>
+      <div class="redes mt-3">
+        <img src="{{ url_for('static', filename='uam-iztapalapa-claro.png') }}" alt="UAM Unidad Iztapalapa" height="56">
+        <div>
+          <div>Redes oficiales de la UAM Unidad Iztapalapa</div>
+          <div class="enlaces">
+            <a href="https://www.facebook.com/UAMIztapalapaOficial/" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://twitter.com/UAM_Iztapalapa" target="_blank" rel="noopener">X</a>
+            <a href="https://www.instagram.com/uamiztapalapaoficial/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.youtube.com/channel/UCYlG7d5Y7X0nh20RBw5VoVg" target="_blank" rel="noopener">YouTube</a>
+          </div>
+        </div>
       </div>
       <div class="mt-2">
         Consulte nuestro <a href="{{ url_for('sitio.privacidad') }}">aviso de privacidad 2026</a>.

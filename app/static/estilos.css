@@ -951,3 +951,22 @@ body {
     display: none;
   }
 }
+
+/* Redes oficiales de la UAM Iztapalapa en el pie */
+.pie .redes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e2);
+}
+
+.pie .redes img {
+  width: auto;
+  max-width: 100%;
+}
+
+/* Nombre largo del sitio: cabe en una línea en pantallas angostas */
+@media (max-width: 480px) {
+  .logo .nombre { font-size: 1.3rem; letter-spacing: 0.02em; }
+  .logo .lema { font-size: 0.9rem; }
+}

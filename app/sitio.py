@@ -10,11 +10,47 @@ bp = Blueprint("sitio", __name__)
 LOREM = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor "
          "incididunt ut labore et dolore magna aliqua.")
 
+# Personas del proyecto, tal como las entregó el grupo.
+# scholar: dirección del perfil de Google Scholar de la persona; None = sin enlace.
 ALIADOS = [
-    {"nombre": nombre, "foto": None, "resena": LOREM}
-    for nombre in ["Dr. Nombre Apellido", "Dra. Nombre Apellido", "Dr. Nombre Apellido",
-                   "Dra. Nombre Apellido", "Mtra. Nombre Apellido", "Ing. Nombre Apellido",
-                   "Biól. Nombre Apellido", "Lic. Nombre Apellido"]
+    {"nombre": "Dra. Sheila Irais Peña Corona", "foto": None, "scholar": None, "lineas": [
+        "Responsable y líder del proyecto BioImage-Repro UAM",
+        "Profesora Asociada de Carrera Nivel D de Tiempo Completo",
+        "Departamento de Biología de la Reproducción",
+        "División de Ciencias Biológicas y de la Salud",
+        "Nivel I del SNII"]},
+    {"nombre": "Dr. Saúl Jiménez Jiménez", "foto": None, "scholar": None, "lineas": [
+        "Responsable del sitio web y del modelo de IA alojados en BioImage-Repro UAM",
+        "PostDoc SECIHTI en la UAM-Iztapalapa",
+        "Departamento de Química",
+        "Departamento de Fisicoquímica de superficies",
+        "División de Ciencias Básicas e Ingeniería",
+        "Candidato SNII"]},
+    {"nombre": "Dra. Edith Arenas Ríos", "foto": None, "scholar": None, "lineas": [
+        "Directora de la División de Ciencias Biológicas y de la Salud",
+        "Nivel I del SNII"]},
+    {"nombre": "Dra. María del Rosario Tarragó Castellanos", "foto": None, "scholar": None, "lineas": [
+        "Jefa del Departamento de Biología de la Reproducción",
+        "División de Ciencias Biológicas y de la Salud",
+        "Nivel I del SNII"]},
+    {"nombre": "Dr. Juan Villegas Cortez", "foto": None, "scholar": None, "lineas": [
+        "Colaborador",
+        "Profesor Titular de Carrera Nivel C de Tiempo Completo",
+        "Departamento de Sistemas",
+        "División de Ciencias Básicas e Ingeniería",
+        "Nivel I del SNII"]},
+    {"nombre": "Dr. Juan Isaac Chavez Corona", "foto": None, "scholar": None, "lineas": [
+        "Colaborador",
+        "Estudiante de doctorado en ciencias Químicas en la UNAM",
+        "Departamento de Farmacia"]},
+    {"nombre": "Dr. Roberto Carlos Lazzarini Lechuga", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Jorge Eduardo Vieyra Durán", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Gerardo Blancas Flores", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Juan José Pérez Rivero", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dra. Marcela Vergara Onofre", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Jesús Eduardo Barrera Morales", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": None, "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
+    {"nombre": "Luis", "foto": None, "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
 
 INFOGRAFIAS = [

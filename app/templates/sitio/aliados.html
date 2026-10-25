@@ -15,7 +15,8 @@
         {% else %}
           <div class="ph" style="height: 220px">[foto]</div>
         {% endif %}
-        <p class="small mt-2 mb-0">{{ aliado.resena }}</p>
+        <p class="small mt-2 mb-0">{% for linea in aliado.lineas %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+        {% if aliado.scholar %}<p class="small mt-1 mb-0"><a href="{{ aliado.scholar }}" target="_blank" rel="noopener">Google Académico</a></p>{% endif %}
       </div>
     {% endfor %}
   </div>
