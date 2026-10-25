@@ -33,7 +33,7 @@ document.getElementById("menu").innerHTML = `
       <a href="index.html">
         <div class="circulo"></div>
         <div>
-          <div class="nombre">IMAGE BIO PRO</div>
+          <div class="nombre">BIOIMAGE-REPRO UAM</div>
           <div class="lema">Análisis de imágenes de microscopio</div>
         </div>
       </a>
@@ -59,12 +59,12 @@ document.getElementById("pie").innerHTML = `
   <footer class="pie">
     <div class="contenedor d-flex flex-wrap justify-content-between gap-3">
       <div>
-        <div class="nombre">Image Bio Pro</div>
+        <div class="nombre">BioImage-Repro UAM</div>
         <div>UAM Unidad Xochimilco</div>
       </div>
       <div class="text-md-end">
         <div>Contacto: contacto@ejemplo.com</div>
-        <div>© 2026 Image Bio Pro</div>
+        <div>© 2026 BioImage-Repro UAM</div>
       </div>
     </div>
   </footer>`;

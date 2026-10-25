@@ -66,7 +66,7 @@ class ReportePDF(FPDF):
         self.set_xy(25, 9)
         self.set_font("Helvetica", "B", 13)
         self.set_text_color(*AZUL_OSCURO)
-        self.cell(0, 6, "IMAGE BIO PRO")
+        self.cell(0, 6, "BIOIMAGE-REPRO UAM")
         self.set_xy(25, 15)
         self.set_font("Helvetica", "", 8)
         self.set_text_color(90, 90, 90)
