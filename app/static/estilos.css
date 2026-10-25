@@ -185,8 +185,8 @@ header { position: relative; }
 
 .logo-uam {
   position: absolute;
-  top: 8px;
-  left: 10px;
+  top: 28px;
+  left: 28px;
   width: auto;
   height: 76px;
 }
@@ -946,7 +946,7 @@ body {
 @media (max-width: 767px) {
   .logo { padding-top: 64px; }
   .logo .logo-proyecto { width: 56px; }
-  .logo-uam { height: 46px; }
+  .logo-uam { top: 12px; left: 18px; height: 46px; }
   .logo .nombre { font-size: 1.75rem; }
   .logo .lema { font-size: 1rem; }
   h1.titulo-pagina { font-size: 2rem; }
@@ -1134,5 +1134,5 @@ body {
 /* Tabletas: el logo de la UAM queda arriba del nombre para no tocar el logo del proyecto */
 @media (min-width: 768px) and (max-width: 1100px) {
   .logo { padding-top: 84px; }
-  .logo-uam { height: 64px; }
+  .logo-uam { top: 12px; left: 24px; height: 64px; }
 }

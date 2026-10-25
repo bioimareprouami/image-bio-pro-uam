@@ -2,7 +2,12 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` es una versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.4.5.
+**En producción: 1.0.0.** El repositorio va en 1.4.6.
+
+## 1.4.6 (25 de octubre de 2026)
+
+- El logo de la UAM se separa de la orilla y queda a la misma altura que el logo del proyecto.
+- El logo del proyecto es el ícono de la pestaña del navegador y de la pantalla de inicio del celular.
 
 ## 1.4.5 (25 de octubre de 2026)
 
