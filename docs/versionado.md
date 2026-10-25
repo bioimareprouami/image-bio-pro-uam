@@ -2,7 +2,9 @@
 
 Las versiones se escriben `A.n.x`, por ejemplo `1.0.0`. Son tres contadores enteros que empiezan en 0.
 
-**Cada commit que entra a `main` es una versión nueva**, con su etiqueta `vA.n.x` puesta en ese commit. La versión que está en producción es la del commit que corre en el servidor.
+**Cada commit que cambia el sitio, el código o la configuración es una versión nueva**, con su etiqueta `vA.n.x` puesta en ese commit. La versión que está en producción es la del commit que corre en el servidor.
+
+**Los commits que solo tocan documentos (`docs/`, `README.md`) no llevan versión**, ni entrada en el `CHANGELOG.md`, ni etiqueta. Su mensaje es `docs: resumen`. Si un commit mezcla documentos con cambios del sitio, lleva versión.
 
 La versión `1.0.0` es la primera que estuvo en producción, del 21 de octubre de 2026.
 
@@ -29,9 +31,6 @@ En el sitio:
 - Un cambio de diseño que se nota.
 - Un cambio del nombre del sitio o del proyecto.
 
-En la capacitación y la documentación:
-- Un plan nuevo, por ejemplo cambiar el número de videos por módulo.
-
 ### Sube `x`
 - Un error de código.
 - Un error en un mensaje o en un texto, o la ortografía.
@@ -57,7 +56,7 @@ Reglas fijas:
 
 1. Elige el número con las reglas de arriba.
 2. En `CHANGELOG.md`, agrega la entrada de la versión nueva arriba, con la fecha, el commit y qué cambió. Va en el mismo commit.
-3. Haz el commit. El mensaje lleva el tipo, dos puntos, el número de la versión y el resumen: `tipo: vA.n.x resumen`, por ejemplo `fix: v1.4.2 corrige el enlace de contacto`. Los tipos son `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `perf` y `chore`, y se agrega `!` al tipo si sube `A`.
+3. Haz el commit (si solo toca documentos, no va aquí: ver arriba). El mensaje lleva el tipo, dos puntos, el número de la versión y el resumen: `tipo: vA.n.x resumen`, por ejemplo `fix: v1.4.2 corrige el enlace de contacto`. Los tipos son `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `perf` y `chore`, y se agrega `!` al tipo si sube `A`.
 4. Ponle la etiqueta al commit, con un mensaje corto:
 
    ```bash
