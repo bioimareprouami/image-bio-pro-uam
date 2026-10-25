@@ -58,8 +58,38 @@ INFOGRAFIAS = [
     for i in range(1, 9)
 ]
 
-# id del video de YouTube (lo que va después de "watch?v="); None = marcador de posición
-VIDEOS = [{"titulo": f"Título del video {i}", "youtube_id": None} for i in range(1, 5)]
+# Videos del curso en dos secciones. Cada video lleva su número en el curso (1 a 15) y el módulo al que
+# pertenece. youtube_id es lo que va después de "watch?v="; None = marcador de posición hasta subir el video.
+_VIDEOS = {
+    1: ("El problema y la imagen digital", "Contar y medir espermatozoides a mano, y qué es una imagen para una computadora."),
+    2: ("Inteligencia artificial, entrenamiento y la neurona", "Definiciones, entrenamiento contra inferencia y la neurona artificial."),
+    3: ("Capas, cómo aprende una red y cierre", "De la neurona a la red, y cómo una red aprende de ejemplos."),
+    4: ("Cómo ve una imagen una red convolucional", "El filtro que recorre la imagen, con un ejemplo numérico de 3 por 3."),
+    5: ("Mask R-CNN", "La red que usa el sistema, explicada en lenguaje sencillo."),
+    6: ("Aprendizaje por transferencia", "Cómo aprovechar una red entrenada para otra cosa."),
+    7: ("Datos y entrenamiento", "Anotación, entrenamiento y validación, sobreajuste y curvas."),
+    8: ("Frontend: el sitio funcionando", "Cómo se ve y cómo está hecho el sitio: plantillas, Bootstrap y la pantalla de resultados."),
+    9: ("Backend", "Flask, las rutas y qué pasa cuando se sube una imagen."),
+    10: ("Inferencia con recortes", "Cómo se usa el modelo: recortes, juntar resultados y quitar repetidos."),
+    11: ("Medición, escala y retos", "Contorno, área, largo y escala, y cómo se resolvieron los retos."),
+    12: ("Cuaderno de Colab, primera parte", "Del entorno a la preparación de las imágenes y los recortes."),
+    13: ("Cuaderno de Colab, segunda parte", "Construir la red, entrenar, ver los resultados y exportar el modelo."),
+    14: ("Despliegue en la nube", "El servidor, la clave SSH, Docker y Docker Compose."),
+    15: ("Nginx, dominio y HTTPS", "Cómo recibe visitas el sitio, el dominio, el certificado y el cierre."),
+}
+# (nombre de la sección, nombre corto para la pestaña, [(número, módulo del curso), ...])
+_SECCIONES = [
+    ("Desarrollo de la red neuronal convolucional", "Red neuronal",
+     [(1, 1), (2, 1), (3, 1), (4, 2), (5, 2), (6, 2), (7, 2), (12, 4), (13, 4)]),
+    ("Desarrollo del sitio web", "Sitio web",
+     [(8, 3), (9, 3), (10, 3), (11, 3), (14, 4), (15, 4)]),
+]
+VIDEOS = [
+    {"nombre": nombre, "corto": corto,
+     "videos": [{"numero": n, "modulo": m, "titulo": _VIDEOS[n][0], "texto": _VIDEOS[n][1], "youtube_id": None}
+                for n, m in lista]}
+    for nombre, corto, lista in _SECCIONES
+]
 
 
 @bp.route("/")
@@ -79,7 +109,9 @@ def aliados():
 
 @bp.route("/infografias")
 def infografias():
-    return render_template("sitio/infografias.html", infografias=INFOGRAFIAS, videos=VIDEOS)
+    total_videos = sum(len(g["videos"]) for g in VIDEOS)
+    return render_template("sitio/infografias.html", infografias=INFOGRAFIAS, videos=VIDEOS,
+                           total_videos=total_videos)
 
 
 @bp.route("/contacto", methods=["GET", "POST"])

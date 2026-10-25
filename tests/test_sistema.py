@@ -240,3 +240,10 @@ def test_contorno_simple_guarda_puntos_dentro_de_la_foto():
     c = np.array([[[10, 10]], [[60, 10]], [[60, 40]], [[10, 40]]], np.int32)
     puntos = medicion.contorno_simple(c)
     assert puntos == [[10, 10], [60, 10], [60, 40], [10, 40]]
+
+
+def test_videos_del_curso_en_infografias(cliente):
+    html = cliente.get("/infografias").get_data(as_text=True)
+    assert html.count('class="video-item"') == 15          # los 15 videos del curso
+    assert html.count('role="tab"') == 2                   # dos secciones: red neuronal y sitio web
+    assert 'id="video-marco"' in html and "videos.js" in html
