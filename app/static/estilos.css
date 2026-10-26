@@ -1136,3 +1136,8 @@ body {
   .logo { padding-top: 84px; }
   .logo-uam { top: 12px; left: 24px; height: 64px; }
 }
+
+/* Foto del equipo en Aliados */
+.foto-equipo { margin: 0 0 var(--e4); text-align: center; }
+.foto-equipo img { max-width: 720px; width: 100%; height: auto; border-radius: 12px; }
+.foto-equipo figcaption { margin-top: 8px; color: var(--color-muted-foreground); }

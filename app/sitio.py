@@ -11,9 +11,10 @@ LOREM = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo
          "incididunt ut labore et dolore magna aliqua.")
 
 # Personas del proyecto, tal como las entregó el grupo.
+# foto: ruta dentro de app/static (fotos cuadradas en app/static/aliados); None = marcador de posición.
 # scholar: dirección del perfil de Google Scholar de la persona; None = sin enlace.
 ALIADOS = [
-    {"nombre": "Dra. Sheila Irais Peña Corona", "foto": None, "scholar": None, "lineas": [
+    {"nombre": "Dra. Sheila Irais Peña Corona", "foto": "aliados/sheila-irais-pena-corona.jpg", "scholar": None, "lineas": [
         "Responsable y líder del proyecto BioImage-Repro UAM",
         "Profesora Asociada de Carrera Nivel D de Tiempo Completo",
         "Departamento de Biología de la Reproducción",
@@ -26,14 +27,14 @@ ALIADOS = [
         "Departamento de Fisicoquímica de superficies",
         "División de Ciencias Básicas e Ingeniería",
         "Candidato SNII"]},
-    {"nombre": "Dra. Edith Arenas Ríos", "foto": None, "scholar": None, "lineas": [
+    {"nombre": "Dra. Edith Arenas Ríos", "foto": "aliados/edith-arenas-rios.jpg", "scholar": None, "lineas": [
         "Directora de la División de Ciencias Biológicas y de la Salud",
         "Nivel I del SNII"]},
-    {"nombre": "Dra. María del Rosario Tarragó Castellanos", "foto": None, "scholar": None, "lineas": [
+    {"nombre": "Dra. María del Rosario Tarragó Castellanos", "foto": "aliados/rosario-tarrago-castellanos.jpg", "scholar": None, "lineas": [
         "Jefa del Departamento de Biología de la Reproducción",
         "División de Ciencias Biológicas y de la Salud",
         "Nivel I del SNII"]},
-    {"nombre": "Dr. Juan Villegas Cortez", "foto": None, "scholar": None, "lineas": [
+    {"nombre": "Dr. Juan Villegas Cortez", "foto": "aliados/juan-villegas-cortez.jpg", "scholar": None, "lineas": [
         "Colaborador",
         "Profesor Titular de Carrera Nivel C de Tiempo Completo",
         "Departamento de Sistemas",
@@ -50,7 +51,7 @@ ALIADOS = [
     {"nombre": "Dra. Marcela Vergara Onofre", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Dr. Jesús Eduardo Barrera Morales", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": None, "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
-    {"nombre": "Luis Enrique Perez Caltzontzin", "foto": None, "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
+    {"nombre": "Luis Enrique Perez Caltzontzin", "foto": "aliados/luis-enrique-perez-caltzontzin.jpg", "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
 
 INFOGRAFIAS = [

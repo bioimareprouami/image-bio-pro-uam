@@ -6,6 +6,11 @@
   <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Aliados</div>
   <h1 class="titulo-pagina">Aliados</h1>
 
+  <figure class="foto-equipo">
+    <img class="img-fluid" src="{{ url_for('static', filename='aliados/equipo-bioimage-repro.jpg') }}" alt="El equipo de BioImage-Repro UAM, reunido al final de una presentación" width="1200" height="900">
+    <figcaption class="small">El equipo de BioImage-Repro UAM</figcaption>
+  </figure>
+
   <div class="row g-4">
     {% for aliado in aliados %}
       <div class="col-6 col-md-3 aliado">
