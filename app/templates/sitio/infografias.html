@@ -1,68 +1,15 @@
 {% extends "base.html" %}
 
-{% block titulo %}Infografías y videos{% endblock %}
+{% block titulo %}Infografías{% endblock %}
 
 {% block contenido %}
-  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Infografías y videos</div>
-  <h1 class="titulo-pagina">Infografías y videos</h1>
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Infografías</div>
+  <h1 class="titulo-pagina">Infografías</h1>
 
-  <div class="titulo-bloque mt-0"><span>Infografías</span></div>
   <div class="row g-3">
     {% for info in infografias %}
       {% with abrir_ventana = true %}{% include "sitio/_infografia.html" %}{% endwith %}
     {% endfor %}
-  </div>
-
-  {# RF-09: videos de YouTube que se reproducen en la misma página.
-     Un reproductor grande y la lista del curso en dos secciones; videos.js cambia el video, la sección y los "vistos". #}
-  <div class="titulo-bloque"><span>Videos</span></div>
-  <div class="videos" id="videos">
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <div class="reproductor cristal">
-          <div class="ratio ratio-16x9" id="video-marco"><div class="ph">[video 1]</div></div>
-          <div class="video-info">
-            <p class="video-modulo mb-2" id="video-modulo"></p>
-            <h3 class="h4" id="video-titulo"></h3>
-            <p class="mb-3" id="video-texto"></p>
-            <div class="video-botones">
-              <button class="btn btn-borde" type="button" id="video-anterior">&lsaquo; Anterior</button>
-              <button class="btn btn-borde" type="button" id="video-visto" aria-pressed="false">Marcar como visto</button>
-              <button class="btn btn-ibp" type="button" id="video-siguiente">Siguiente &rsaquo;</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="lista-videos cristal">
-          <p class="mb-1" id="video-progreso-texto" aria-live="polite">Has visto 0 de {{ total_videos }}</p>
-          <div class="progress mb-3" role="progressbar" aria-label="Videos vistos" aria-valuemin="0" aria-valuemax="{{ total_videos }}" aria-valuenow="0" id="video-progreso">
-            <div class="progress-bar" style="width: 0%"></div>
-          </div>
-          <div class="pestanas-modulo" role="tablist" aria-label="Secciones del curso">
-            {% for grupo in videos %}
-              <button type="button" role="tab" class="pestana-modulo" data-modulo="{{ loop.index }}" aria-selected="{{ 'true' if loop.first else 'false' }}">{{ grupo.corto }}</button>
-            {% endfor %}
-          </div>
-          {% for grupo in videos %}
-            {% set m = loop.index %}
-            <ol class="video-lista" data-modulo="{{ m }}"{% if not loop.first %} hidden{% endif %}>
-              {% for video in grupo.videos %}
-                <li>
-                  <button type="button" class="video-item" data-numero="{{ video.numero }}" data-modulo="{{ m }}"
-                          data-seccion="{{ grupo.nombre }}" data-curso-modulo="{{ video.modulo }}" data-titulo="{{ video.titulo }}"
-                          data-texto="{{ video.texto }}" data-youtube="{{ video.youtube_id or '' }}">
-                    <span class="video-num">{{ video.numero }}</span>
-                    <span class="video-datos"><b>{{ video.titulo }}</b><small>{{ video.texto }}</small></span>
-                    <span class="video-marca" aria-hidden="true"></span>
-                  </button>
-                </li>
-              {% endfor %}
-            </ol>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="modal fade" id="ventana" tabindex="-1">
@@ -79,8 +26,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
-
-{% block scripts %}
-  <script src="{{ url_for('static', filename='videos.js') }}"></script>
 {% endblock %}

@@ -46,7 +46,7 @@ def imagen_bytes(ruta, formato):
     return io.BytesIO(datos.tobytes())
 
 
-@pytest.mark.parametrize("url", ["/", "/nosotros", "/aliados", "/infografias", "/ia",
+@pytest.mark.parametrize("url", ["/", "/nosotros", "/aliados", "/infografias", "/videos", "/ia",
                                  "/contacto", "/entrar", "/aviso-de-privacidad"])
 def test_paginas_publicas(cliente, url):
     assert cliente.get(url).status_code == 200
@@ -242,8 +242,8 @@ def test_contorno_simple_guarda_puntos_dentro_de_la_foto():
     assert puntos == [[10, 10], [60, 10], [60, 40], [10, 40]]
 
 
-def test_videos_del_curso_en_infografias(cliente):
-    html = cliente.get("/infografias").get_data(as_text=True)
+def test_videos_del_curso(cliente):
+    html = cliente.get("/videos").get_data(as_text=True)
     assert html.count('class="video-item"') == 15          # los 15 videos del curso
     assert html.count('role="tab"') == 2                   # dos secciones: red neuronal y sitio web
     assert 'id="video-marco"' in html and "videos.js" in html
@@ -251,3 +251,11 @@ def test_videos_del_curso_en_infografias(cliente):
     assert html.count('data-youtube="') == 15              # todos llevan el atributo, vacío si aún no hay video
     for youtube_id in sitio._YOUTUBE.values():             # los videos activados salen con su id, una vez
         assert html.count('data-youtube="%s"' % youtube_id) == 1
+
+
+def test_infografias_y_videos_son_paginas_distintas(cliente):
+    infografias = cliente.get("/infografias").get_data(as_text=True)
+    assert 'id="ventana"' in infografias                    # la ventana de las infografías
+    assert 'class="video-item"' not in infografias and "videos.js" not in infografias
+    inicio = cliente.get("/").get_data(as_text=True)
+    assert 'href="/infografias"' in inicio and 'href="/videos"' in inicio   # dos entradas en el menú

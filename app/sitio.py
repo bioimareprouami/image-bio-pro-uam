@@ -1,4 +1,4 @@
-"""Páginas informativas: inicio, nosotros, aliados, infografías y videos, contacto."""
+"""Páginas informativas: inicio, nosotros, aliados, infografías, videos, contacto."""
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from app.extensiones import db
@@ -117,9 +117,13 @@ def aliados():
 
 @bp.route("/infografias")
 def infografias():
+    return render_template("sitio/infografias.html", infografias=INFOGRAFIAS)
+
+
+@bp.route("/videos")
+def videos():
     total_videos = sum(len(g["videos"]) for g in VIDEOS)
-    return render_template("sitio/infografias.html", infografias=INFOGRAFIAS, videos=VIDEOS,
-                           total_videos=total_videos)
+    return render_template("sitio/videos.html", videos=VIDEOS, total_videos=total_videos)
 
 
 @bp.route("/contacto", methods=["GET", "POST"])

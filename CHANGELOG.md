@@ -2,7 +2,13 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.7.0.
+**En producción: 1.0.0.** El repositorio va en 1.8.0.
+
+## 1.8.0 (26 de octubre de 2026)
+
+- Infografías y Videos pasan a ser dos páginas distintas, cada una con su entrada en el menú y en el pie.
+- Infografías (`/infografias`) muestra solo el mosaico y su ventana. Videos (`/videos`) muestra el reproductor y la lista del curso.
+- La página de Inteligencia Artificial enlaza solo a las infografías.
 
 ## 1.7.0 (26 de octubre de 2026)
 
