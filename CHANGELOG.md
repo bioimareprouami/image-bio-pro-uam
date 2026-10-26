@@ -2,7 +2,11 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.6.0.
+**En producción: 1.0.0.** El repositorio va en 1.6.1.
+
+## 1.6.1 (25 de octubre de 2026)
+
+- Infografías y videos: el video seleccionado ya no lleva la franja verde a la izquierda; se distingue por el borde y el fondo.
 
 ## 1.6.0 (25 de octubre de 2026)
 
