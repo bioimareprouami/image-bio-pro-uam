@@ -2,7 +2,12 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.8.0.
+**En producción: 1.0.0.** El repositorio va en 1.8.1.
+
+## 1.8.1 (27 de octubre de 2026)
+
+- Videos: los videos 1, 2 y 3 vuelven a quedar comentados en `app/sitio.py`; la página muestra el marcador hasta que se publiquen.
+- Aliados: se quitan Gerardo Blancas Flores, Juan José Pérez Rivero, Marcela Vergara Onofre y Jesús Eduardo Barrera Morales.
 
 ## 1.8.0 (26 de octubre de 2026)
 

@@ -46,10 +46,6 @@ ALIADOS = [
         "Departamento de Farmacia"]},
     {"nombre": "Dr. Roberto Carlos Lazzarini Lechuga", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Dr. Jorge Eduardo Vieyra Durán", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Dr. Gerardo Blancas Flores", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Dr. Juan José Pérez Rivero", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Dra. Marcela Vergara Onofre", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Dr. Jesús Eduardo Barrera Morales", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": None, "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
     {"nombre": "Luis Enrique Perez Caltzontzin", "foto": "aliados/luis-enrique-perez-caltzontzin.jpg", "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
@@ -81,9 +77,9 @@ _VIDEOS = {
 }
 # Videos ya subidos a YouTube: número del curso -> id. Los que no están salen como marcador de posición.
 _YOUTUBE = {
-    1: "ucNXMX2AXAg",
-    2: "5LMw9Kyl1j4",
-    3: "pqSKnbEho38",
+    # 1: "ucNXMX2AXAg",
+    # 2: "5LMw9Kyl1j4",
+    # 3: "pqSKnbEho38",
 }
 # (nombre de la sección, nombre corto para la pestaña, [(número, módulo del curso), ...])
 _SECCIONES = [
