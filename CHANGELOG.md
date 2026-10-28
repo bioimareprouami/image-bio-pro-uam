@@ -2,7 +2,11 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.8.1.
+**En producción: 1.0.0.** El repositorio va en 1.9.0.
+
+## 1.9.0 (27 de octubre de 2026)
+
+- Aliados: se agregan las fotos de Isaac Emanuel Mani Arellano y de Gerardo Mejia Hernandez, y Gerardo Mejia Hernandez aparece como colaborador.
 
 ## 1.8.1 (27 de octubre de 2026)
 

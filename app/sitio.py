@@ -46,7 +46,8 @@ ALIADOS = [
         "Departamento de Farmacia"]},
     {"nombre": "Dr. Roberto Carlos Lazzarini Lechuga", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Dr. Jorge Eduardo Vieyra Durán", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": None, "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
+    {"nombre": "Gerardo Mejia Hernandez", "foto": "aliados/gerardo-mejia-hernandez.jpeg", "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": "aliados/isaac-emanuel-mani-arellano.jpeg", "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
     {"nombre": "Luis Enrique Perez Caltzontzin", "foto": "aliados/luis-enrique-perez-caltzontzin.jpg", "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
 
