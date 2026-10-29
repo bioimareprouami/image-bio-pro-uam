@@ -1111,17 +1111,53 @@ body {
   }
 }
 
-/* Redes oficiales de la UAM Iztapalapa en el pie */
+/* Pie centrado en una banda oscura: nombre, domicilio, contacto y logos */
+.pie .pie-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--e3);
+}
+
+.pie .pie-datos {
+  font-style: normal;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.pie .pie-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--e4);
+  opacity: 0.85;
+}
+
+.pie .pie-logos img {
+  width: auto;
+  max-width: 100%;
+}
+
+.pie .enlaces,
 .pie .redes {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: var(--e2);
+  column-gap: var(--e3);
 }
 
-.pie .redes img {
-  width: auto;
-  max-width: 100%;
+.pie .redes a {
+  display: inline-block;
+  padding: 10px 0;
+}
+
+.pie .pie-legal {
+  font-size: 0.9375rem;
+  max-width: 60rem;
 }
 
 /* Nombre largo del sitio: cabe en una línea en pantallas angostas */

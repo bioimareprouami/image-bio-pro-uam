@@ -81,37 +81,32 @@
   </main>
 
   <footer class="pie">
-    <div class="contenedor">
-      <div class="d-flex flex-wrap justify-content-between gap-3">
-        <div>
-          <div class="nombre notranslate">BioImage-Repro UAM</div>
-          <div>UAM Unidad Iztapalapa</div>
-          <div>Departamento de Biología de la Reproducción</div>
-          <div>Departamento de Química</div>
-        </div>
-        <div class="text-md-end">
-          <div>Contacto: contacto@ejemplo.com</div>
-          <div>© {{ anio }} <span class="notranslate">BioImage-Repro UAM</span></div>
-        </div>
+    <div class="contenedor pie-centro">
+      <div class="nombre notranslate">BioImage-Repro UAM</div>
+      <address class="pie-datos">
+        <div>UAM Unidad Iztapalapa</div>
+        <div>Av. San Rafael Atlixco 186, Leyes de Reforma 1ra Secc,</div>
+        <div>Iztapalapa, 09340 Ciudad de México, CDMX.</div>
+        <div class="mt-2">Tel: 55 5804 4600</div>
+        <div>Correo: uamiztapalapa62@gmail.com</div>
+      </address>
+      <div class="pie-logos">
+        <img src="{{ url_for('static', filename='logo-proyecto.png') }}" alt="BioImage-Repro UAM" height="72">
+        <img src="{{ url_for('static', filename='uam-iztapalapa-claro.png') }}" alt="UAM Unidad Iztapalapa" height="72">
       </div>
-      <div class="enlaces mt-3">
+      <div class="enlaces">
         {% for ruta, nombre in paginas[1:] %}<a href="{{ url_for(ruta) }}">{{ nombre }}</a>{% endfor %}
       </div>
-      <div class="redes mt-3">
-        <img src="{{ url_for('static', filename='uam-iztapalapa-claro.png') }}" alt="UAM Unidad Iztapalapa" height="56">
-        <div>
-          <div>Redes oficiales de la UAM Unidad Iztapalapa</div>
-          <div class="enlaces">
-            <a href="https://www.facebook.com/UAMIztapalapaOficial/" target="_blank" rel="noopener">Facebook</a>
-            <a href="https://twitter.com/UAM_Iztapalapa" target="_blank" rel="noopener">X</a>
-            <a href="https://www.instagram.com/uamiztapalapaoficial/" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://www.youtube.com/channel/UCYlG7d5Y7X0nh20RBw5VoVg" target="_blank" rel="noopener">YouTube</a>
-          </div>
-        </div>
+      <div class="redes">
+        <span>Redes oficiales de la UAM Unidad Iztapalapa:</span>
+        <a href="https://www.facebook.com/UAMIztapalapaOficial/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://twitter.com/UAM_Iztapalapa" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/uamiztapalapaoficial/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com/channel/UCYlG7d5Y7X0nh20RBw5VoVg" target="_blank" rel="noopener">YouTube</a>
       </div>
-      <div class="mt-2">
-        Consulte nuestro <a href="{{ url_for('sitio.privacidad') }}">aviso de privacidad 2026</a>.
-        Contenido bajo licencia
+      <div class="pie-legal">
+        © {{ anio }} <span class="notranslate">BioImage-Repro UAM</span>. Consulte nuestro
+        <a href="{{ url_for('sitio.privacidad') }}">aviso de privacidad 2026</a>. Contenido bajo licencia
         <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.es" rel="license">Creative Commons Attribution-NonCommercial 4.0</a>.
       </div>
     </div>

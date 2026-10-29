@@ -2,7 +2,13 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.9.0.
+**En producción: 1.0.0.** El repositorio va en 1.10.0.
+
+## 1.10.0 (28 de octubre de 2026)
+
+- Pie de página: pasa a una banda oscura centrada con el nombre del proyecto, el domicilio, el teléfono, el correo, los logos del proyecto y de la UAM, los enlaces, las redes y la leyenda legal.
+- Correo de contacto provisional: uamiztapalapa62@gmail.com, en el pie y en Contacto.
+- Aliados: los colaboradores aparecen al final de la lista.
 
 ## 1.9.0 (27 de octubre de 2026)
 

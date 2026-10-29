@@ -51,6 +51,9 @@ ALIADOS = [
     {"nombre": "Luis Enrique Perez Caltzontzin", "foto": "aliados/luis-enrique-perez-caltzontzin.jpg", "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},
 ]
 
+# Los colaboradores van al final; el orden dentro de cada grupo es el de la lista.
+ALIADOS.sort(key=lambda a: a["lineas"][0] == "Colaborador")
+
 INFOGRAFIAS = [
     {"numero": i, "titulo": f"Título de la infografía {i}", "imagen": None, "texto": LOREM}
     for i in range(1, 9)
