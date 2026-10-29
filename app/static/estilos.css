@@ -1145,6 +1145,11 @@ body {
   max-width: 100%;
 }
 
+/* Los logos del pie se muestran en blanco para que no se pierdan en el fondo azul */
+.pie .logo-blanco {
+  filter: brightness(0) invert(1);
+}
+
 .pie .redes {
   display: flex;
   flex-wrap: wrap;
