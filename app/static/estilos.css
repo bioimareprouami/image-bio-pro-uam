@@ -643,16 +643,16 @@ h1.titulo-pagina {
 .pie {
   background: var(--color-foreground);
   color: var(--color-background);
-  font-size: 1rem;
-  padding: var(--e4) 0;
-  margin-top: var(--e6);
+  font-size: 0.9375rem;
+  padding: var(--e3) 0;
+  margin-top: var(--e4);
 }
 
 .pie .nombre {
   font-family: var(--fuente-titulo);
   font-weight: 600;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
 }
 
 .pie a {
@@ -1114,19 +1114,19 @@ body {
   }
 }
 
-/* Pie centrado en una banda oscura: nombre, domicilio, contacto y logos */
+/* Pie discreto y centrado en una banda oscura: nombre, domicilio, contacto, redes y logos */
 .pie .pie-centro {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--e3);
+  gap: var(--e2);
 }
 
 .pie .pie-datos {
   font-style: normal;
-  font-size: 1.125rem;
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -1135,12 +1135,13 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--e4);
-  opacity: 0.85;
+  gap: var(--e3);
+  opacity: 0.6;
 }
 
 .pie .pie-logos img {
   width: auto;
+  height: 44px;
   max-width: 100%;
 }
 
@@ -1149,7 +1150,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--e3);
+  gap: var(--e1);
 }
 
 .pie .redes a {
@@ -1159,21 +1160,31 @@ body {
   min-width: 44px;
   min-height: 44px;
   color: #fff;
+  opacity: 0.8;
 }
 
 .pie .redes a:hover,
 .pie .redes a:focus-visible {
-  color: var(--color-border);
+  opacity: 1;
 }
 
 .pie .redes svg {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
 }
 
 .pie .pie-legal {
-  font-size: 0.9375rem;
-  max-width: 60rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  max-width: 44rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 575.98px) {
+  .pie { padding: var(--e3) 0 var(--e4); }
+  .pie .pie-datos,
+  .pie .pie-legal { font-size: 0.875rem; }
+  .pie .pie-logos img { height: 36px; }
 }
 
 /* Nombre largo del sitio: cabe en una línea en pantallas angostas */
