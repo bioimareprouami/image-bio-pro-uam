@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block titulo %}Contraseña nueva{% endblock %}
+
+{% block contenido %}
+  <div class="migas"><a href="{{ url_for('sitio.inicio') }}">Inicio</a> &rsaquo; Contraseña nueva</div>
+  <h1 class="titulo-pagina">Elige una contraseña nueva</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="mb-3">
+          <label class="form-label" for="clave-reset">Contraseña nueva</label>
+          <input class="form-control" id="clave-reset" name="clave" type="password" minlength="8" required>
+          <div class="form-text">Al menos 8 caracteres.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="clave-reset2">Repite la contraseña</label>
+          <input class="form-control" id="clave-reset2" name="clave2" type="password" minlength="8" required>
+        </div>
+        <button class="btn btn-ibp" type="submit">Cambiar contraseña</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

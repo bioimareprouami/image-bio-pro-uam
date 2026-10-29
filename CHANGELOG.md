@@ -2,7 +2,13 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.10.3.
+**En producción: 1.0.0.** El repositorio va en 1.11.0.
+
+## 1.11.0 (28 de octubre de 2026)
+
+- Recuperar contraseña: Entrar lleva el enlace "¿Olvidaste tu contraseña?". La persona escribe su correo y recibe un enlace para elegir una contraseña nueva; el enlace dura una hora y sirve una sola vez.
+- La respuesta es la misma exista o no la cuenta, para no revelar quién está registrado.
+- El sitio manda correo por SMTP con las variables `MAIL_SERVIDOR`, `MAIL_PUERTO`, `MAIL_USUARIO`, `MAIL_REMITENTE` y `MAIL_CLAVE`, que van en el archivo `.env` del servidor (no se sube a Git). Si faltan, se avisa a la persona que escriba al correo de contacto.
 
 ## 1.10.3 (28 de octubre de 2026)
 

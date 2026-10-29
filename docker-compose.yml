@@ -12,6 +12,12 @@ services:
       OPENBLAS_NUM_THREADS: "1"
       # Solo desarrollo: 1 muestra un temporizador en la pantalla de espera. En producción se deja sin definir.
       MOSTRAR_TEMPORIZADOR: ${MOSTRAR_TEMPORIZADOR:-}
+      # Correo para recuperar la contraseña (SMTP). Se definen en el archivo .env del servidor
+      MAIL_SERVIDOR: ${MAIL_SERVIDOR:-}
+      MAIL_PUERTO: ${MAIL_PUERTO:-}
+      MAIL_USUARIO: ${MAIL_USUARIO:-}
+      MAIL_REMITENTE: ${MAIL_REMITENTE:-}
+      MAIL_CLAVE: ${MAIL_CLAVE:-}
     volumes:
       - datos:/srv/imagebio/instance
       - ./model:/srv/imagebio/model:ro

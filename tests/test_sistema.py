@@ -259,3 +259,46 @@ def test_infografias_y_videos_son_paginas_distintas(cliente):
     assert 'class="video-item"' not in infografias and "videos.js" not in infografias
     inicio = cliente.get("/").get_data(as_text=True)
     assert 'href="/infografias"' in inicio and 'href="/videos"' in inicio   # dos entradas en el menú
+
+
+def _enlace_de(correos):
+    return re.search(r"/restablecer/\S+", correos[-1]).group(0)
+
+
+def test_recuperar_contrasena(app, cliente, monkeypatch):
+    correos = []
+    monkeypatch.setattr("app.correo.enviar", lambda destino, asunto, texto: correos.append(texto) or True)
+    registrar(cliente)
+    cliente.post("/salir")
+
+    # Un correo que no existe da la misma respuesta y no manda nada
+    r = cliente.post("/olvide", data={"correo": "nadie@ejemplo.com"}, follow_redirects=True)
+    assert "Si el correo está registrado" in r.get_data(as_text=True) and not correos
+
+    cliente.post("/olvide", data={"correo": "ana@ejemplo.com"})
+    enlace = _enlace_de(correos)
+    r = cliente.post(enlace, data={"clave": "corta", "clave2": "corta"})
+    assert "al menos 8" in r.get_data(as_text=True)
+    r = cliente.post(enlace, data={"clave": "nueva-clave-1", "clave2": "nueva-clave-1"}, follow_redirects=True)
+    assert "quedó cambiada" in r.get_data(as_text=True)
+
+    # La contraseña vieja ya no sirve, la nueva sí, y el enlace no se puede usar dos veces
+    r = cliente.post("/entrar", data={"accion": "entrar", "correo": "ana@ejemplo.com", "clave": "secreta123"})
+    assert "incorrectos" in r.get_data(as_text=True)
+    r = cliente.post("/entrar", data={"accion": "entrar", "correo": "ana@ejemplo.com", "clave": "nueva-clave-1"})
+    assert r.status_code == 302
+    cliente.post("/salir")
+    assert cliente.get(enlace).status_code == 302
+
+
+def test_enlace_de_recuperacion_invalido(cliente):
+    assert cliente.get("/restablecer/basura").status_code == 302
+
+
+def test_recuperar_sin_correo_configurado_avisa(cliente, monkeypatch):
+    for v in ("MAIL_SERVIDOR", "MAIL_USUARIO", "MAIL_CLAVE"):
+        monkeypatch.delenv(v, raising=False)
+    registrar(cliente)
+    cliente.post("/salir")
+    r = cliente.post("/olvide", data={"correo": "ana@ejemplo.com"})
+    assert "No pudimos enviar el correo" in r.get_data(as_text=True)
