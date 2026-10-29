@@ -2,7 +2,12 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.10.0.
+**En producción: 1.0.0.** El repositorio va en 1.10.1.
+
+## 1.10.1 (28 de octubre de 2026)
+
+- Pie de página: se quita la fila de enlaces a las páginas y las redes oficiales de la UAM Iztapalapa pasan a ser iconos blancos (Facebook, X, Instagram y YouTube) en lugar de texto.
+- Fondo: el difuminado de color ya no se repite, así que no se corta con una línea en las páginas largas como Nosotros.
 
 ## 1.10.0 (28 de octubre de 2026)
 
