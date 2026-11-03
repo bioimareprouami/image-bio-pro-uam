@@ -8,7 +8,7 @@
 
   <div class="row g-5">
     <div class="col-md-6">
-      <div class="titulo-bloque mt-0"><span>Iniciar sesión</span></div>
+      <div class="titulo-bloque mt-0" id="iniciar-sesion"><span>Iniciar sesión</span></div>
       <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="accion" value="entrar">
@@ -31,7 +31,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="titulo-bloque mt-0"><span>Crear cuenta</span></div>
+      <div class="titulo-bloque mt-0" id="crear-cuenta"><span>Crear cuenta</span></div>
       <form method="post">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="accion" value="registrar">

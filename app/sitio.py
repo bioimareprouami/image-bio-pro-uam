@@ -20,7 +20,7 @@ ALIADOS = [
         "Departamento de Biología de la Reproducción",
         "División de Ciencias Biológicas y de la Salud",
         "Nivel I del SNII"]},
-    {"nombre": "Dr. Saúl Jiménez Jiménez", "foto": None, "scholar": None, "lineas": [
+    {"nombre": "Dr. Saúl Jiménez Jiménez", "foto": "aliados/sin-foto.svg", "scholar": None, "lineas": [
         "Responsable del sitio web y del modelo de IA alojados en BioImage-Repro UAM",
         "PostDoc SECIHTI en la UAM-Iztapalapa",
         "Departamento de Química",
@@ -44,8 +44,8 @@ ALIADOS = [
         "Colaborador",
         "Estudiante de doctorado en ciencias Químicas en la UNAM",
         "Departamento de Farmacia"]},
-    {"nombre": "Dr. Roberto Carlos Lazzarini Lechuga", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
-    {"nombre": "Dr. Jorge Eduardo Vieyra Durán", "foto": None, "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Roberto Carlos Lazzarini Lechuga", "foto": "aliados/roberto-carlos-lazzarini-lechuga.jpg", "scholar": None, "lineas": ["Colaborador"]},
+    {"nombre": "Dr. Jorge Eduardo Vieyra Durán", "foto": "aliados/jorge-eduardo-vieyra-duran.jpg", "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Gerardo Mejia Hernandez", "foto": "aliados/gerardo-mejia-hernandez.jpeg", "scholar": None, "lineas": ["Colaborador"]},
     {"nombre": "Biól. Isaac Emanuel Mani Arellano", "foto": "aliados/isaac-emanuel-mani-arellano.jpeg", "scholar": None, "lineas": ["Colaborador", "Estudiante"]},
     {"nombre": "Luis Enrique Perez Caltzontzin", "foto": "aliados/luis-enrique-perez-caltzontzin.jpg", "scholar": None, "lineas": ["Logística y coordinador de actividades de difusión"]},

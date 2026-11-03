@@ -10,7 +10,7 @@
     <div class="row g-4 align-items-center">
       <div class="col-lg-7">
         <h1 class="notranslate">BioImage-Repro UAM</h1>
-        <p class="intro">De una fotografía de microscopio a datos que se pueden verificar: el sistema detecta cada espermatozoide, lo cuenta y mide su tamaño.</p>
+        <p class="intro">El modelo analiza imágenes de microscopía de fluorescencia y genera un reporte del conteo celular, analiza la distribución de los tamaños celulares y genera el análisis estadístico para el campo observado en la imagen.</p>
         <a class="btn btn-ibp" href="{{ url_for('analisis.ia') }}">Analizar una imagen</a>
       </div>
       <div class="col-lg-5">
@@ -22,8 +22,8 @@
   {# Capítulo 1: el problema #}
   <section class="capitulo cristal" aria-labelledby="cap-problema">
     <span class="etiqueta">1 de 3</span>
-    <h2 id="cap-problema">El problema</h2>
-    <p>Contar y medir células a mano es lento, repetitivo y cambia según quien lo haga. Una sola fotografía puede tener decenas o cientos de células, muchas encimadas o pegadas unas a otras.</p>
+    <h2 id="cap-problema">Objetivo</h2>
+    <p>Analizar imágenes de microscopía de fluorescencia para células espermáticas utilizando un modelo de red neuronal convolucional.</p>
   </section>
 
   {# Capítulo 2: el recorrido #}
@@ -35,22 +35,22 @@
         <div class="icono" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>
         </div>
-        <h3>Subes la foto</h3>
-        <p class="mb-0">Hasta diez imágenes a la vez, en BMP, PNG o TIFF.</p>
+        <h3>Subes la imagen</h3>
+        <p class="mb-0">Analiza hasta 10 imágenes de manera simultánea. Utiliza formatos en BMP, PNG o TIFF.</p>
       </li>
       <li>
         <div class="icono" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
         <h3>La red localiza</h3>
-        <p class="mb-0">Una red neuronal traza el contorno de cada espermatozoide.</p>
+        <p class="mb-0">La red realiza una selección del contorno de cada célula a través de un método de aprendizaje supervisado.</p>
       </li>
       <li>
         <div class="icono" aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
         </div>
-        <h3>El código mide</h3>
-        <p class="mb-0">Con esos contornos se calculan el conteo, el área y el largo.</p>
+        <h3>Análisis estadístico</h3>
+        <p class="mb-0">Con el contorno es posible calcular múltiples métricas y generar un estudio estadístico descriptivo.</p>
       </li>
     </ol>
   </section>
@@ -58,14 +58,14 @@
   {# Capítulo 3: la solución #}
   <section class="capitulo cristal" aria-labelledby="cap-resultados">
     <span class="etiqueta">3 de 3</span>
-    <h2 id="cap-resultados">Resultados que se pueden revisar</h2>
-    <p>Cada resultado incluye la imagen con los contornos marcados, el conteo, la media y la desviación estándar, y la distribución de tamaños. Se descargan en CSV y en un informe PDF.</p>
+    <h2 id="cap-resultados">Resultados</h2>
+    <p>La plataforma crea un informe en formato CSV y PDF que pueden ser descargados desde tu celular o en cualquier dispositivo con acceso a internet.</p>
   </section>
 
   {# Cierre #}
   <section class="capitulo cristal cierre" aria-labelledby="cap-cierre">
-    <h2 id="cap-cierre">Prueba el análisis</h2>
-    <p>Sube una fotografía de fluorescencia o usa la imagen de ejemplo del sitio.</p>
+    <h2 id="cap-cierre">Análisis</h2>
+    <p>Sube tu imagen o conjunto de imágenes en formato BMP, PNG o TIFF o utiliza las imágenes de prueba para explorar los resultados de la red neuronal artificial.</p>
     <a class="btn btn-ibp" href="{{ url_for('analisis.ia') }}">Analizar una imagen</a>
   </section>
 {% endblock %}

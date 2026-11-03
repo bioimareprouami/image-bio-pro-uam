@@ -113,7 +113,7 @@ def olvide():
             flash("Si el correo está registrado, te mandamos un enlace para elegir una contraseña nueva. "
                   "Revisa también la carpeta de spam.", "info")
             return redirect(url_for("cuentas.entrar"))
-        flash("No pudimos enviar el correo en este momento. Escríbenos a uamiztapalapa62@gmail.com.", "danger")
+        flash("No pudimos enviar el correo en este momento. Escríbenos a bioimareprouami@gmail.com.", "danger")
     return render_template("cuentas/olvide.html", form=request.form)
 
 

@@ -1,22 +1,28 @@
-/* Estilos del sitio: estilo de cristal (glassmorphism), colores azul y verde, tipografía EB Garamond y Crimson Text.
+/* Estilos del sitio: estilo de cristal (glassmorphism), colores azul marino y dorado, tipografía Playfair Display y Source Sans 3.
    Todos los colores salen de los tokens de abajo; no hay colores sueltos en los componentes. */
 
 :root {
   /* Colores */
-  --color-primary: #0ea5e9;
-  --color-on-primary: #0f172a;
-  --color-secondary: #0284c7;
+  --color-primary: #f2b01e;
+  --color-on-primary: #0a1f44;
+  --color-secondary: #1d5fb0;
   --color-accent: #059669;
   --color-on-accent: #000000;
-  --color-background: #f0f9ff;
-  --color-foreground: #0c4a6e;
+  --color-background: #f3f7fc;
+  --color-foreground: #0a1f44;
   --color-card: #ffffff;
-  --color-muted: #e8f2f8;
-  --color-muted-foreground: #475569;
-  --color-border: #bae6fd;
+  --color-muted: #e3ecf8;
+  --color-muted-foreground: #35455f;
+  --color-border: #b4c9e4;
   --color-destructive: #dc2626;
   --color-on-destructive: #ffffff;
   --color-ring: #000000;
+
+  /* Azul institucional de la cabecera y de los botones principales (estilo de la UNAM) */
+  --color-institucional: #164a9c;
+  --color-institucional-oscuro: #0d2f6b;
+  --color-on-institucional: #ffffff;
+  --color-lema: #e4eefb;
 
   /* Tintes de apoyo para avisos */
   --tinte-exito: #ecfdf5;
@@ -29,7 +35,7 @@
   --cristal-fuerte: rgba(255, 255, 255, 0.92);
   --cristal-borde: var(--color-border);
   --cristal-desenfoque: blur(14px) saturate(140%);
-  --sombra: 0 8px 32px rgba(12, 74, 110, 0.1);
+  --sombra: 0 8px 32px rgba(10, 31, 68, 0.12);
 
   /* Escala de espacio (ritmo de 8 px) */
   --e1: 8px;
@@ -41,13 +47,13 @@
   --radio: 16px;
   --radio-control: 12px;
 
-  --fuente-titulo: "EB Garamond", Georgia, serif;
-  --fuente-texto: "Crimson Text", Georgia, serif;
+  --fuente-titulo: "Playfair Display", Georgia, serif;
+  --fuente-texto: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
   /* Variables de Bootstrap */
   --bs-body-font-family: var(--fuente-texto);
-  --bs-body-font-size: 1.0625rem;
-  --bs-body-line-height: 1.5;
+  --bs-body-font-size: 1.125rem;
+  --bs-body-line-height: 1.6;
   --bs-body-color: var(--color-foreground);
   --bs-body-bg: var(--color-background);
   --bs-link-color: var(--color-foreground);
@@ -65,12 +71,12 @@ html {
 
 body {
   font-family: var(--fuente-texto);
-  font-size: 1.0625rem;
-  line-height: 1.5;
+  font-size: 1.125rem;
+  line-height: 1.6;
   color: var(--color-foreground);
   background:
-    radial-gradient(60rem 30rem at 85% -10%, rgba(14, 165, 233, 0.18), transparent 60%),
-    radial-gradient(50rem 28rem at -10% 20%, rgba(5, 150, 105, 0.1), transparent 60%),
+    radial-gradient(60rem 30rem at 85% -10%, rgba(29, 95, 176, 0.2), transparent 60%),
+    radial-gradient(50rem 28rem at -10% 20%, rgba(242, 176, 30, 0.14), transparent 60%),
     var(--color-background);
   /* Sin repetir: si no, el difuminado se corta con una línea al empezar la segunda copia */
   background-repeat: no-repeat;
@@ -111,6 +117,13 @@ a, button, [role="button"], label[for], select, input[type="file"], input[type="
   outline-offset: 2px;
   box-shadow: 0 0 0 5px #fff;
 }
+
+header .logo :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 5px var(--color-institucional);
+}
+
+#iniciar-sesion, #crear-cuenta { scroll-margin-top: 72px; }
 
 .pie :focus-visible,
 .modal-content.bg-dark :focus-visible {
@@ -183,8 +196,17 @@ a, button, [role="button"], label[for], select, input[type="file"], input[type="
   flex: none;
 }
 
-/* Logo de la UAM: en la esquina superior izquierda del encabezado */
-header { position: relative; }
+/* Cabecera: banda azul institucional con los logos y el nombre en blanco */
+header {
+  position: relative;
+  background: linear-gradient(120deg, var(--color-institucional-oscuro), var(--color-institucional) 55%, #2a74cf);
+  color: var(--color-on-institucional);
+}
+
+header .logo-uam,
+header .logo-proyecto {
+  filter: brightness(0) invert(1);
+}
 
 .logo-uam {
   position: absolute;
@@ -197,16 +219,16 @@ header { position: relative; }
 .logo .nombre {
   font-family: var(--fuente-titulo);
   font-weight: 700;
-  font-size: 2.75rem;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  color: var(--color-foreground);
+  font-size: 2.5rem;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--color-on-institucional);
 }
 
 .logo .lema {
   font-family: var(--fuente-texto);
-  font-size: 1.0625rem;
-  color: var(--color-muted-foreground);
+  font-size: 1.125rem;
+  color: var(--color-lema);
   margin-top: 6px;
   text-align: left;
 }
@@ -231,7 +253,7 @@ header { position: relative; }
   color: var(--color-foreground);
   font-family: var(--fuente-texto);
   font-weight: 700;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   display: flex;
   align-items: center;
   gap: var(--e1);
@@ -288,7 +310,7 @@ header { position: relative; }
 
 .menu-principal .nav-link {
   font-weight: 600;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   color: var(--color-foreground);
   display: flex;
   align-items: center;
@@ -326,11 +348,13 @@ header { position: relative; }
 .enlace-bloque {
   display: inline-block;
   padding: 10px 0;
+  color: var(--color-institucional-oscuro);
+  font-weight: 700;
 }
 
 h1.titulo-pagina {
   font-family: var(--fuente-titulo);
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 600;
   margin-bottom: var(--e3);
 }
@@ -345,7 +369,7 @@ h1.titulo-pagina {
   display: inline-block;
   font-family: var(--fuente-titulo);
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   color: var(--color-foreground);
   padding: 0 0 var(--e1);
   line-height: 1.2;
@@ -381,20 +405,20 @@ h1.titulo-pagina {
 }
 
 .btn-ibp {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  background: var(--color-institucional);
+  color: var(--color-on-institucional);
   font-family: var(--fuente-texto);
   font-weight: 700;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   padding: 0 var(--e3);
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-institucional);
   text-decoration: none;
 }
 
 .btn-ibp:hover {
-  background: #10b981;
-  border-color: #10b981;
-  color: var(--color-on-accent);
+  background: var(--color-institucional-oscuro);
+  border-color: var(--color-institucional-oscuro);
+  color: var(--color-on-institucional);
 }
 
 .btn-borde {
@@ -402,7 +426,7 @@ h1.titulo-pagina {
   color: var(--color-foreground);
   font-family: var(--fuente-texto);
   font-weight: 700;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   padding: 0 var(--e3);
   border: 2px solid var(--color-foreground);
   text-decoration: none;
@@ -431,7 +455,7 @@ h1.titulo-pagina {
   border: 1.5px solid var(--color-secondary);
   border-radius: var(--radio-control);
   font-family: var(--fuente-texto);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
 }
 
 .form-control:focus {
@@ -563,7 +587,7 @@ h1.titulo-pagina {
 
 /* Página de IA: fondo con color para que el cristal se note */
 .fondo-ia {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(135deg, var(--color-institucional-oscuro), var(--color-secondary));
   padding: var(--e6) var(--e2);
 }
 
@@ -836,13 +860,23 @@ h1.titulo-pagina {
 }
 
 .portada h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: var(--e2);
 }
 
+.portada h1::after {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-primary);
+  margin-top: var(--e2);
+}
+
 .portada .intro {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   max-width: 34rem;
   color: var(--color-muted-foreground);
   margin-bottom: var(--e3);
@@ -871,7 +905,7 @@ h1.titulo-pagina {
 }
 
 .capitulo h2 {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 600;
   margin-bottom: var(--e2);
 }
@@ -913,7 +947,7 @@ h1.titulo-pagina {
 }
 
 .pasos h3 {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -950,10 +984,10 @@ body {
   .logo { padding-top: 64px; }
   .logo .logo-proyecto { width: 56px; }
   .logo-uam { top: 12px; left: 18px; height: 46px; }
-  .logo .nombre { font-size: 1.75rem; }
+  .logo .nombre { font-size: 1.5rem; }
   .logo .lema { font-size: 1rem; }
-  h1.titulo-pagina { font-size: 2rem; }
-  .portada h1 { font-size: 2.25rem; }
+  h1.titulo-pagina { font-size: 2.125rem; }
+  .portada h1 { font-size: 2.5rem; }
   .capitulo { padding: var(--e3) var(--e2); }
   .caja-carga { padding: var(--e3) var(--e2); }
 }
@@ -1194,7 +1228,7 @@ body {
 
 /* Nombre largo del sitio: cabe en una línea en pantallas angostas */
 @media (max-width: 480px) {
-  .logo .nombre { font-size: 1.3rem; letter-spacing: 0.02em; }
+  .logo .nombre { font-size: 1.1rem; letter-spacing: 0; }
   .logo .lema { font-size: 0.8rem; line-height: 1.35; }
 }
 
@@ -1208,3 +1242,27 @@ body {
 .foto-equipo { margin: 0 0 var(--e4); text-align: center; }
 .foto-equipo img { max-width: 720px; width: 100%; height: auto; border-radius: 12px; }
 .foto-equipo figcaption { margin-top: 8px; color: var(--color-muted-foreground); }
+
+/* Bloque de infografías de la página de IA: título centrado y ocho huecos en dos filas */
+.titulo-centrado {
+  text-align: center;
+}
+
+.titulo-centrado span {
+  font-size: 2rem;
+}
+
+.infografia h3 {
+  text-align: center;
+}
+
+.enlace-centrado {
+  text-align: center;
+}
+
+/* Contador de visitantes en el pie */
+.pie .pie-visitas {
+  font-size: 0.9375rem;
+  margin-top: var(--e1);
+  color: var(--color-border);
+}

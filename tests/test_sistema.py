@@ -302,3 +302,12 @@ def test_recuperar_sin_correo_configurado_avisa(cliente, monkeypatch):
     cliente.post("/salir")
     r = cliente.post("/olvide", data={"correo": "ana@ejemplo.com"})
     assert "No pudimos enviar el correo" in r.get_data(as_text=True)
+
+
+def test_contador_de_visitantes_cuenta_una_vez_por_sesion(app):
+    uno = app.test_client()
+    for _ in range(3):
+        assert uno.get("/").status_code == 200
+    otro = app.test_client()
+    html = otro.get("/nosotros").get_data(as_text=True)
+    assert "Visitantes: 2" in html

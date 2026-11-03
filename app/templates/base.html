@@ -8,7 +8,7 @@
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="any">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=EB+Garamond:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 <body>
@@ -88,8 +88,9 @@
         <div>Av. San Rafael Atlixco 186, Leyes de Reforma 1ra Secc,</div>
         <div>Iztapalapa, 09340 Ciudad de México, CDMX.</div>
         <div class="mt-2">Tel: 55 5804 4600</div>
-        <div>Correo: uamiztapalapa62@gmail.com</div>
+        <div>Correo: bioimareprouami@gmail.com</div>
       </address>
+      <div class="pie-visitas">Visitantes: {{ "{:,}".format(visitantes) }}</div>
       <div class="pie-logos">
         <img class="logo-blanco" src="{{ url_for('static', filename='logo-proyecto.png') }}" alt="BioImage-Repro UAM" height="72">
         <img class="logo-blanco" src="{{ url_for('static', filename='uam-iztapalapa-claro.png') }}" alt="UAM Unidad Iztapalapa" height="72">

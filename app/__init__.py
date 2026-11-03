@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask
+from flask import Flask, request, session
 
 from app.extensiones import csrf, db, login_manager
 
@@ -47,9 +47,25 @@ def crear_app(config=None):
     app.register_blueprint(bp_cuentas)
     app.register_blueprint(bp_analisis)
 
+    @app.before_request
+    def contar_visitante():
+        """Suma un visitante la primera vez que una sesión abre una página (sin guardar datos de la persona)."""
+        if request.method != "GET" or not request.endpoint or request.endpoint == "static" or session.get("contado"):
+            return
+        from app.modelos import Contador
+        fila = db.session.get(Contador, "visitantes")
+        if fila is None:
+            fila = Contador(clave="visitantes", valor=0)
+            db.session.add(fila)
+        fila.valor += 1
+        db.session.commit()
+        session["contado"] = True
+
     @app.context_processor
     def datos_globales():
-        return {"anio": datetime.now().year}
+        from app.modelos import Contador
+        fila = db.session.get(Contador, "visitantes")
+        return {"anio": datetime.now().year, "visitantes": fila.valor if fila else 0}
 
     with app.app_context():
         db.create_all()

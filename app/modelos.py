@@ -51,6 +51,12 @@ class Mensaje(db.Model):
     fecha = db.Column(db.DateTime, default=datetime.now, nullable=False)
 
 
+class Contador(db.Model):
+    """Contadores del sitio. Hoy solo cuenta visitantes: una persona cuenta una vez por sesión del navegador."""
+    clave = db.Column(db.String(40), primary_key=True)
+    valor = db.Column(db.Integer, default=0, nullable=False)
+
+
 @login_manager.user_loader
 def cargar_usuario(usuario_id):
     return db.session.get(Usuario, int(usuario_id))

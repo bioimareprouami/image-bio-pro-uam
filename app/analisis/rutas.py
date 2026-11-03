@@ -25,7 +25,7 @@ def extension(nombre):
 
 @bp.route("/ia")
 def ia():
-    return render_template("analisis/ia.html", infografias=INFOGRAFIAS[:4],
+    return render_template("analisis/ia.html", infografias=INFOGRAFIAS,
                            extensiones=sorted(EXTENSIONES),
                            max_imagenes=current_app.config["MAX_IMAGENES"])
 

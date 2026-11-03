@@ -2,7 +2,20 @@
 
 Las reglas para numerar las versiones están en [`docs/versionado.md`](docs/versionado.md). Cada commit de `main` que cambia el sitio es una versión. Los que solo tocan documentos no llevan versión.
 
-**En producción: 1.0.0.** El repositorio va en 1.11.1.
+**En producción: 1.0.0.** El repositorio va en 1.12.0.
+
+## 1.12.0 (3 de noviembre de 2026)
+
+- Cabecera: pasa a una banda azul institucional, con los logos y el nombre del proyecto en blanco, al estilo de la cabecera de la UNAM.
+- Botones principales: de verde con letra negra a azul institucional con letra blanca, para que haya contraste. El enlace "Ver todas las infografías" se ve más oscuro y en negrita.
+- Analizar imagen: sin cuenta, el aviso dice "Para el análisis de imágenes se requiere el acceso con una cuenta" y hay dos botones, "Iniciar sesión" y "Crear cuenta", que llevan a cada formulario de la página de acceso.
+- Inicio: nuevos textos en la descripción, el objetivo, las tres tarjetas del recorrido de una imagen, los resultados y la sección de análisis. La red se describe como de aprendizaje supervisado y el estudio estadístico como descriptivo.
+- Correo de contacto oficial: bioimareprouami@gmail.com, en el pie, en Contacto y en el aviso de recuperar contraseña.
+- Tipografía: títulos en Playfair Display y texto en Source Sans 3, con una escala de tamaños más marcada en todo el sitio.
+- Colores: azul marino con detalles dorados y mayor contraste en textos, bordes y botones; la cabecera lleva degradado.
+- Infografías: el bloque de la página de IA se llama "Infografías ImageRepro UAM", va centrado y deja ocho huecos en dos filas.
+- Contador de visitantes en el pie: suma una vez por sesión del navegador y no guarda datos de la persona. Usa la tabla nueva `contador`, que se crea sola al arrancar.
+- Aliados: fotos del Dr. Roberto Carlos Lazzarini Lechuga y del Dr. Jorge Eduardo Vieyra Durán, y un icono de perfil sin foto para el Dr. Saúl Jiménez Jiménez, mientras llega la suya.
 
 ## 1.11.1 (30 de octubre de 2026)
 
